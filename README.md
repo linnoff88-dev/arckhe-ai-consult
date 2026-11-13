@@ -211,7 +211,7 @@ Seriously, the hardest part is getting the API keys. Once those are set up, it's
 
 ```bash
 # Clone the repository
-git clone https://github.com/~~ARCKHÉTDS~~/AI-CONSULT.git
+git clone https://github.com/inematds/AI-CONSULT.git
 cd AI-CONSULT
 
 # Create .env file with your API keys
@@ -247,7 +247,7 @@ Just say: "Clone and run the AI Strategy Factory for me"
 
 ```bash
 # Clone the repository
-git clone https://github.com/~~ARCKHÉTDS~~/AI-CONSULT.git
+git clone https://github.com/inematds/AI-CONSULT.git
 cd AI-CONSULT
 
 # Run the setup script (works on Windows, macOS, Linux)
@@ -402,7 +402,7 @@ sudo sh get-docker.sh
 sudo apt install docker-compose-plugin
 
 # 2. Clone the repository
-git clone https://github.com/~~ARCKHÉTDS~~/AI-CONSULT.git
+git clone https://github.com/inematds/AI-CONSULT.git
 cd AI-CONSULT
 
 # 3. Set up environment
@@ -420,7 +420,7 @@ docker-compose logs -f ai-consult
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/~~ARCKHÉTDS~~/AI-CONSULT.git
+git clone https://github.com/inematds/AI-CONSULT.git
 cd AI-CONSULT
 
 # 2. Create virtual environment

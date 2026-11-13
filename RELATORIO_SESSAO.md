@@ -1,7 +1,7 @@
 # Relatório da Sessão de Desenvolvimento - AI Consult
 
 **Data:** 2 de Dezembro de 2025
-**Repositório:** https://github.com/~~ARCKHÉTDS~~/AI-CONSULT
+**Repositório:** https://github.com/inematds/AI-CONSULT
 **Desenvolvedor:** Claude Code + nmaldaner
 
 ---
@@ -23,7 +23,7 @@ Sessão de desenvolvimento completa onde foram implementadas melhorias críticas
 ### 1. Configuração do Repositório GitHub
 
 **Ações:**
-- Configurado remote `~~ARCKHÉTDS~~` apontando para `git@github.com:~~ARCKHÉTDS~~/AI-CONSULT.git`
+- Configurado remote `inematds` apontando para `git@github.com:inematds/AI-CONSULT.git`
 - Atualizado de `ai-strategy-factory` para `AI-CONSULT`
 - Configurado push via SSH
 
@@ -538,7 +538,7 @@ sh get-docker.sh
 apt install docker-compose-plugin -y
 
 # 3. Clonar projeto
-git clone https://github.com/~~ARCKHÉTDS~~/AI-CONSULT.git
+git clone https://github.com/inematds/AI-CONSULT.git
 cd AI-CONSULT
 
 # 4. Configurar .env
@@ -564,7 +564,7 @@ docker compose up -d
 
 ```bash
 # 1. Clonar
-git clone https://github.com/~~ARCKHÉTDS~~/AI-CONSULT.git
+git clone https://github.com/inematds/AI-CONSULT.git
 cd AI-CONSULT
 
 # 2. Setup
@@ -712,13 +712,13 @@ python3 -c "import os; print(os.urandom(24).hex())"
 ## 📞 Suporte e Contato
 
 ### Repositório
-https://github.com/~~ARCKHÉTDS~~/AI-CONSULT
+https://github.com/inematds/AI-CONSULT
 
 ### Issues
-https://github.com/~~ARCKHÉTDS~~/AI-CONSULT/issues
+https://github.com/inematds/AI-CONSULT/issues
 
 ### Email
-~~ARCKHÉTDS~~@gmail.com
+inematds@gmail.com
 
 ### Documentação
 - `README.md` - Guia geral
