@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Track 1 — Fundamentals &amp; First Steps | AI Strategy Factory</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15',
+      dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+    } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    /* Light mode base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light accent: emerald (T1) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .group:hover .group-hover\:text-emerald-400 { color: #059669; }
+    /* Light accent: blue (T2) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.06); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+    /* Light accent: purple (T3) */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.06); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    /* Light - remove gradients + special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.06); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    /* Light - navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    /* Dark - softened borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG light-mode taming */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/curso/trilha1/" hreflang="pt-BR" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/en/curso/trilha1/" hreflang="en" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/es/curso/trilha1/" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="arckhe-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha1/" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="./" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha1/" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV — Trilha 1 ativa (emerald) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🏭</span><span class="font-bold text-lg hidden sm:inline">AI Strategy Factory</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10" href="index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentals</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">In Depth</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Deliverables</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- HEADER DE TRILHA -->
+<header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">TRACK 1</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🟢 Fundamentals &amp; First Steps</h1>
+<p class="text-lg text-neutral-400 max-w-3xl mb-6">
+        Start from absolute zero: understand what the tool does, install everything on your machine, and generate your first report through the web interface—without having to type any commands.
+      </p>
+<!-- Hero SVG: do download ao primeiro relatório -->
+<div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-4 mb-8 max-w-3xl">
+<svg aria-label="Path for Trail 1: understand the tool, prepare the prerequisites and installation, and generate the first report that produces the ready-to-use package" class="w-full h-auto" role="img" viewbox="0 0 800 170">
+<defs>
+<lineargradient id="t1-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#34d399"></stop><stop offset="100%" stop-color="#38bdf8"></stop>
+</lineargradient>
+<filter height="180%" id="t1-glow" width="140%" x="-20%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<pattern height="40" id="t1-grid" patternunits="userSpaceOnUse" width="40" x="0" y="0">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="#34d39918" stroke-width="0.8"></path>
+</pattern>
+<marker id="t1-ah" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3"><polygon fill="#34d399" points="0 0, 8 3, 0 6"></polygon></marker>
+<marker id="t1-ahc" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3"><polygon fill="#38bdf8" points="0 0, 8 3, 0 6"></polygon></marker>
+</defs>
+<rect fill="url(#t1-grid)" height="170" width="800" x="0" y="0"></rect>
+<!-- Nó 1: Entender -->
+<rect fill="#0e2018" height="56" rx="11" stroke="#34d399" stroke-width="2" width="150" x="24" y="58"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="13" font-weight="600" text-anchor="middle" x="99" y="82">🎯 Understand</text>
+<text fill="#6ee7b7" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="99" y="100">what it does</text>
+<line class="wf-a" marker-end="url(#t1-ah)" stroke="#34d399" stroke-width="2" x1="174" x2="214" y1="86" y2="86"></line>
+<!-- Nó 2: Instalar -->
+<rect fill="#0e2018" height="56" rx="11" stroke="#34d399" stroke-width="2" width="150" x="218" y="58"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="13" font-weight="600" text-anchor="middle" x="293" y="82">🔑 Install</text>
+<text fill="#6ee7b7" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="293" y="100">keys + setup</text>
+<line class="wf-a" marker-end="url(#t1-ahc)" stroke="#38bdf8" stroke-width="2" x1="368" x2="408" y1="86" y2="86"></line>
+<!-- Nó 3: Rodar -->
+<g filter="url(#t1-glow)"><rect fill="#0e1b26" height="56" rx="11" stroke="#38bdf8" stroke-width="2" width="150" x="412" y="58"></rect></g>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="13" font-weight="600" text-anchor="middle" x="487" y="82">🖥️ Run</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="487" y="100">web app</text>
+<line class="wf-a" marker-end="url(#t1-ah)" stroke="#34d399" stroke-width="2" x1="562" x2="602" y1="86" y2="86"></line>
+<!-- Nó 4: Relatório -->
+<g filter="url(#t1-glow)"><rect fill="#0e2018" height="56" rx="11" stroke="url(#t1-grad)" stroke-width="2.5" width="170" x="606" y="58"></rect></g>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="13" font-weight="600" text-anchor="middle" x="691" y="82">📊 Report</text>
+<text fill="#6ee7b7" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="691" y="100">ready-to-use package</text>
+<text fill="#4b5563" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="400" y="148">Four steps take you from "I've never used it" to downloading your first strategy package.</text>
+</svg>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-4 gap-4 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">3</div>
+<div class="text-xs text-neutral-400">Modules</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">20</div>
+<div class="text-xs text-neutral-400">Topics</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">~1h40</div>
+<div class="text-xs text-neutral-400">Duration</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">Beginner</div>
+<div class="text-xs text-neutral-400">Level</div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<!-- MAPA DA TRILHA -->
+<section class="mb-12">
+<h2 class="text-2xl font-bold mb-6">Track map</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-emerald-500/30 p-5 transition-all" href="#modulo-1-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-emerald-400 font-bold text-sm">1.1</span>
+<span class="text-xs text-neutral-500">~30 min</span>
+</div>
+<h3 class="font-semibold mb-1 group-hover:text-emerald-400 transition-colors">🏭 What is the tool</h3>
+<p class="text-xs text-neutral-400">Strategy in minutes</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-emerald-500/30 p-5 transition-all" href="#modulo-1-2">
+<div class="flex items-center justify-between mb-2">
+<span class="text-emerald-400 font-bold text-sm">1.2</span>
+<span class="text-xs text-neutral-500">~40 min</span>
+</div>
+<h3 class="font-semibold mb-1 group-hover:text-emerald-400 transition-colors">🔑 Prerequisites &amp; Installation</h3>
+<p class="text-xs text-neutral-400">From zero to a running app</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-emerald-500/30 p-5 transition-all" href="#modulo-1-3">
+<div class="flex items-center justify-between mb-2">
+<span class="text-emerald-400 font-bold text-sm">1.3</span>
+<span class="text-xs text-neutral-500">~30 min</span>
+</div>
+<h3 class="font-semibold mb-1 group-hover:text-emerald-400 transition-colors">🖥️ Your first report</h3>
+<p class="text-xs text-neutral-400">Web, no commands</p>
+</a>
+</div>
+</section>
+<!-- CONTEÚDO DETALHADO -->
+<h2 class="text-2xl font-bold mb-6">Detailed content</h2>
+<!-- ==================== MÓDULO 1.1 ==================== -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-1-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-emerald-400 font-bold">1.1</span>
+<span class="text-xs text-neutral-500">~30 min</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">🏭 What is the AI Strategy Factory</h3>
+<p class="text-neutral-400 text-sm">Before installing, understand what the tool does, what it delivers, and why it costs only pennies. Seven topics that give you the complete mental map.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<!-- Tópico 1 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🎯 The problem it solves</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">AI consulting is expensive, slow, and hard to find</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">Almost every company wants to adopt AI, but a serious strategy consulting engagement costs thousands of reais, takes weeks, and depends on scarce experts. Most companies end up without a clear plan.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Understanding the pain point shows the tool’s real value: it democratizes something that used to be exclusive to big budgets. You can now offer (or get) a diagnosis few people have.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Traditional consulting = weeks + thousands of reais</li><li>The tool = minutes + pennies</li><li>Focus on people who normally wouldn’t have access</li></ul></div>
+</div>
+</div>
+<!-- Tópico 2 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">⚡ The solution in one sentence</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Company goes in, strategy comes out</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">You provide a company name (and, if you like, some context), and the tool returns a complete AI strategy package—researched, written, and formatted automatically.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">This is the course's central mental model: a funnel from one simple input (the name) to many ready-to-use outputs (the documents). Everything else is a detail of that funnel.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Minimum input = company name</li><li>Optional context improves the result</li><li>Output = ready-to-use package</li></ul></div>
+</div>
+</div>
+<!-- Tópico 3 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">📦 What it delivers</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">15 documents + presentations + diagrams</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">There are 15 text documents (diagnostics, roadmap, ROI, governance, prompts, and more), 2 PowerPoint presentations, 2 Word reports, and architecture diagrams as images (PNG).</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Knowing what to expect prevents frustration and helps you plan how to use each piece. Track 3 breaks down each document—here, you just need the big picture.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>15 documents + 2 PPTX + 2 DOCX + diagrams</li><li>Everything saved in a folder for each company</li><li>Presentation-ready material</li></ul></div>
+</div>
+</div>
+<!-- Tópico 4 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🔄 The 3 process phases</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Research → Synthesis → Generation</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">The process has 3 sequential phases: Research (collects company data), Synthesis (writes the documents), and Generation (assembles presentations and diagrams). Each phase uses a different technology.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Understanding the phases helps you track progress on the screen and know where to troubleshoot when something goes wrong (covered in Tracks 2 and 3).</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Phase 1 Research → uses Perplexity</li><li>Phase 2 Synthesis → uses Gemini</li><li>Phase 3 Generation → runs on your computer, at no cost</li></ul></div>
+</div>
+</div>
+<!-- Tópico 5 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">5</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🧠 The two AIs behind it</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Perplexity researches, Gemini writes</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">The tool combines two AI services: the <strong class="text-emerald-400">Perplexity</strong> (searches the internet for up-to-date information, with sources) and the <strong class="text-emerald-400">Google Gemini</strong> (turns the research into well-written documents).</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">You'll need a key for each service. Knowing each AI's role clarifies why both are needed—and what each one charges.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Perplexity = research with sources</li><li>Gemini = document writing</li><li>Each one requires its own API key</li></ul></div>
+</div>
+</div>
+<!-- Tópico 6 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">6</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">💰 How much it costs</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Cents per company</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">The only cost is for AI calls: about US$ 0,05 in quick mode and US$ 0,50 in in-depth mode, per company. The generation phase (on your computer) is free.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Takes the fear out of the cost — it’s incredibly cheap. But it’s good to understand that each analysis uses a little of the credit on your API keys.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Quick: ~US$ 0,05 · in-depth: ~US$ 0,50</li><li>Local generation = free</li><li>You pay the APIs directly, not the course</li></ul></div>
+</div>
+</div>
+<!-- Tópico 7 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">7</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">👤 Who it’s for</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Consultants, founders, innovation teams</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">Suitable for consultants who want to deliver faster, founders evaluating AI in their own business, innovation teams, and anyone studying AI strategy. No programming knowledge required.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Helps you frame the use case: for clients, for the company itself, or for learning. The result is always a strong draft that a human reviews and personalizes.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Consulting, internal use, or education</li><li>No programming prerequisites</li><li>Generates drafts for a human to refine</li></ul></div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-1-1')">View in Modal</button>
+<a class="px-4 py-2 text-sm bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors" href="modulo-1-1.html">View Full Version</a>
+</div>
+</div>
+<!-- ==================== MÓDULO 1.2 ==================== -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-1-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-emerald-400 font-bold">1.2</span>
+<span class="text-xs text-neutral-500">~40 min</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">🔑 Prerequisites &amp; Installation</h3>
+<p class="text-neutral-400 text-sm">Everything you need to get the tool ready to run: what to install, how to get the two free keys, and how to set up the key file. Seven topics, step by step.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<!-- Tópico 1 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🧰 What you need</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Python, 2 keys, and a terminal</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">Three things: the <strong class="text-emerald-400">Python 3.9 or higher</strong> installed, the <strong class="text-emerald-400">two API keys</strong> (Perplexity and Gemini) and a <strong class="text-emerald-400">terminal</strong> (Command Prompt on Windows; Terminal on Mac/Linux).</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Having the prerequisites ready before you start prevents getting stuck in the middle of installation — the most common mistake for beginners.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Python 3.9+ (download from python.org/downloads)</li><li>On Windows, select “Add Python to PATH” during installation</li><li>Terminal open in the project folder</li></ul></div>
+</div>
+</div>
+<!-- Tópico 2 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🔎 Perplexity Key</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Get it in 2 minutes</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">Go to <span class="font-mono text-xs text-emerald-400">perplexity.ai/settings/api</span>, create an account, and click "Generate API Key". The key starts with <span class="font-mono text-xs">pplx-</span>.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">It’s one of the two required keys. Without it, the Research phase won’t run, and no documents will be generated.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Site: perplexity.ai/settings/api</li><li>Key format: pplx-...</li><li>Store it in a safe place — it’s like a password</li></ul></div>
+</div>
+</div>
+<!-- Tópico 3 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">✨ Gemini key</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Free in Google AI Studio</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">Go to <span class="font-mono text-xs text-emerald-400">aistudio.google.com/apikey</span>, sign in with your Google account and click "Create API Key". The key starts with <span class="font-mono text-xs">AIzaSy</span>.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">This is the second required key. Without it, the Synthesis phase can't write the documents.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Site: aistudio.google.com/apikey</li><li>Key format: AIzaSy...</li><li>Sign in with a regular Google account</li></ul></div>
+</div>
+</div>
+<!-- Tópico 4 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🚀 Automatic installation</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">python setup.py does everything</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">After downloading the project, run <span class="font-mono text-xs text-emerald-400">python setup.py</span>. The script creates the environment, installs the dependencies, and prepares the .env file for you.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">This is the simplest option if you don't want to deal with manual commands. One command and the environment is ready.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>1 command does it all</li><li>Creates the virtual environment and installs dependencies</li><li>Generates a blank .env for you to fill in</li></ul></div>
+</div>
+</div>
+<!-- Tópico 5 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">5</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🛠️ Manual installation</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">venv + pip, step by step</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">If you prefer to control each step: create the environment with <span class="font-mono text-xs">python3 -m venv venv</span>, enable it, install it with <span class="font-mono text-xs">pip install -r requirements.txt</span> and copy the example file with <span class="font-mono text-xs">cp .env.example .env</span>.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Useful when the automated process fails, or to understand what’s happening under the hood. “venv” is an isolated environment just for this project.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Enable: <span class="font-mono text-xs">source venv/bin/activate</span> (Mac/Linux)</li><li>Or <span class="font-mono text-xs">.\venv\Scripts\activate</span> (Windows)</li><li>Always activate the venv before running the tool</li></ul></div>
+</div>
+</div>
+<!-- Tópico 6 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">6</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">📝 Configure the .env</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Where to paste the keys</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">Open the file <span class="font-mono text-xs">.env</span> in a text editor and fill in <span class="font-mono text-xs">PERPLEXITY_API_KEY</span> e <span class="font-mono text-xs">GEMINI_API_KEY</span> with your keys. Save the file.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">This is where the keys are “fed” into the program. Without this, the tool can't access the AIs — and authentication fails.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>PERPLEXITY_API_KEY=pplx-...</li><li>GEMINI_API_KEY=AIzaSy...</li><li>No extra spaces · never share this file</li></ul></div>
+</div>
+</div>
+<!-- Tópico 7 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">7</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">✅ Confirm that it worked</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Test at no cost</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">Before spending anything, run a simulation test: <span class="font-mono text-xs text-emerald-400">python -m strategy_factory.main run "Stripe" --dry-run</span>. If it runs without a key error, everything is fine.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Confirms the installation and key configuration without spending a cent, because simulation mode doesn’t make real AI calls.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>--dry-run = simulation, no AI calls</li><li>A key error here indicates an incorrect .env</li><li>Remember to activate the venv first</li></ul></div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-1-2')">View in Modal</button>
+<a class="px-4 py-2 text-sm bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors" href="modulo-1-2.html">View Full Version</a>
+</div>
+</div>
+<!-- ==================== MÓDULO 1.3 ==================== -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-1-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-emerald-400 font-bold">1.3</span>
+<span class="text-xs text-neutral-500">~30 min</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">🖥️ Your first report (web mode)</h3>
+<p class="text-neutral-400 text-sm">The easiest way to use the tool is the web interface. Start the app, explore the screen, and generate your first strategy package — point and click, no commands needed.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<!-- Tópico 1 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">▶️ Start the web app</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">One command opens the browser</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">With the environment activated, run <span class="font-mono text-xs text-emerald-400">python -m strategy_factory.webapp</span>. The browser opens automatically at <span class="font-mono text-xs">http://localhost:8888</span>.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">The web mode is the most user-friendly way to use the tool — without having to memorize any command beyond this one.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Command: ...strategy_factory.webapp</li><li>Opens at localhost:8888</li><li>Port in use? It finds another one, or use --port 9000</li></ul></div>
+</div>
+</div>
+<!-- Tópico 2 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🧭 Interface tour</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Field, mode, and context</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">The screen has a field for the company name, a mode selector (Quick/Comprehensive), an optional context field, and a button to start the analysis.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Getting to know the screen before you run it helps you feel confident about your first analysis—without worrying about clicking the wrong place.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Company field (required)</li><li>Mode: quick or in-depth</li><li>Context (optional) + start button</li></ul></div>
+</div>
+</div>
+<!-- Tópico 3 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🏷️ Enter the company</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">The only required field</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">Enter the name of the company you want to analyze (for example, “Stripe”). It’s the only information required to get started.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">This is the starting point for every analysis. The name also becomes the name of the folder where the results will be saved.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Name = main input</li><li>Turn into the results folder (e.g., stripe)</li><li>Use the company’s commonly known name</li></ul></div>
+</div>
+</div>
+<!-- Tópico 4 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">💬 Add context</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Optional, greatly improves</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">In the context field, you can add hints like "fintech, B2B, 200 employees." This helps Perplexity research more precisely.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Good context goes a long way toward improving document quality, especially for companies that aren’t well known or have ambiguous names.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Context = industry, company size, business model</li><li>Optional, but recommended</li><li>The more specific you are, the better the result</li></ul></div>
+</div>
+</div>
+<!-- Tópico 5 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">5</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">📊 Track progress</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">The 3 phases live</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">After starting, a bar shows real-time progress through the 3 phases (Research, Synthesis, Generation), indicating what's happening.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">You see what's happening and how much time is left—and it's clear when the package is ready.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Progress bar by phase</li><li>Quick: 2-3 min · in-depth: 5-10 min</li><li>Keep track without closing the tab</li></ul></div>
+</div>
+</div>
+<!-- Tópico 6 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0">6</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">📥 Download the files</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Everything ready to use</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">When you’re done, the screen shows links to download each deliverable (documents, presentations, Word files, and diagrams). Everything is also saved in the folder <span class="font-mono text-xs">output/</span> from your machine.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">This is the end goal: having the files on hand to use, edit, and present. Track 3 shows you what to do with each one.</p></div>
+<div><p class="text-xs font-semibold text-emerald-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Download each file directly from the screen</li><li>Everything saved in output/nome-da-empresa/</li><li>You can read the markdown in the interface itself</li></ul></div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-1-3')">View in Modal</button>
+<a class="px-4 py-2 text-sm bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors" href="modulo-1-3.html">View Full Version</a>
+</div>
+</div>
+<!-- NAVEGAÇÃO FIM -->
+<div class="flex justify-between items-center py-8 border-t border-dark-600 mt-8">
+<a class="flex items-center space-x-2 text-neutral-400 hover:text-emerald-400 transition-colors" href="../../index.html">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="text-sm">Back to the beginning</span>
+</a>
+<a class="flex items-center space-x-2 text-neutral-400 hover:text-blue-400 transition-colors" href="../trilha2/index.html">
+<span class="text-sm">Next Track: Deep Dive</span>
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</div>
+</main>
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 py-8 mt-16">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm space-y-1">
+<p>🏭 AI Strategy Factory — Complete AI strategy for any company · <a class="text-sky-400 hover:text-sky-300" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a> · 2026</p>
+</div>
+</footer>
+<!-- MODAIS -->
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-1-1" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-emerald-400 font-bold">1.1</span><span class="font-semibold">🏭 What is the AI Strategy Factory</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-1-1.html"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-1-2" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-emerald-400 font-bold">1.2</span><span class="font-semibold">🔑 Prerequisites &amp; Installation</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-1-2.html"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-1-3" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-emerald-400 font-bold">1.3</span><span class="font-semibold">🖥️ Your first report (web mode)</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-1-3.html"></iframe>
+</div>
+</div>
+<!-- SCRIPTS -->
+<script>
+    function toggleTopic(b){const t=b.closest('.topic-item'),e=t.querySelector('.topic-explanation'),c=b.closest('.bg-dark-800');c.querySelectorAll('.topic-explanation.active').forEach(x=>{if(x!==e)x.classList.remove('active');});e.classList.toggle('active');}
+    function openModal(id){const m=document.getElementById(id);if(m){m.classList.remove('hidden');document.body.style.overflow='hidden';}}
+    function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList.add('hidden'));document.body.style.overflow='auto';}
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+    const themeToggle=document.getElementById('theme-toggle'),tdi=document.getElementById('theme-toggle-dark-icon'),tli=document.getElementById('theme-toggle-light-icon'),H=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){tdi.classList.remove('hidden');H.classList.remove('dark');}else{tli.classList.remove('hidden');}
+    themeToggle.addEventListener('click',()=>{tdi.classList.toggle('hidden');tli.classList.toggle('hidden');H.classList.toggle('dark');localStorage.setItem('theme',H.classList.contains('dark')?'dark':'light');});
+  </script>
+</body>
+</html>

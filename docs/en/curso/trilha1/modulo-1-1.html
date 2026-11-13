@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>M1.1 — What Is the AI Strategy Factory | AI Strategy Factory</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15',
+      dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+    } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    /* Light mode base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light accent: emerald (T1) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .group:hover .group-hover\:text-emerald-400 { color: #059669; }
+    /* Light accent: blue (T2) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.06); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+    /* Light accent: purple (T3) */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.06); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    /* Light - remove gradients + special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.06); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    /* Light - navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    /* Dark - softened borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG light-mode taming */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/curso/trilha1/modulo-1-1.html" hreflang="pt-BR" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/en/curso/trilha1/modulo-1-1.html" hreflang="en" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/es/curso/trilha1/modulo-1-1.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="arckhe-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha1/modulo-1-1.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-1-1.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha1/modulo-1-1.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV — Trilha 1 ativa (emerald) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🏭</span><span class="font-bold text-lg hidden sm:inline">AI Strategy Factory</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10" href="index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentals</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">In Depth</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Deliverables</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<!-- BREADCRUMB -->
+<nav aria-label="breadcrumb" class="flex items-center space-x-2 text-sm text-neutral-400 mb-8">
+<a class="hover:text-emerald-400 transition-colors" href="../../index.html">Start</a>
+<span>/</span>
+<a class="hover:text-emerald-400 transition-colors" href="index.html">Track 1</a>
+<span>/</span>
+<span class="text-emerald-400">Module 1.1</span>
+</nav>
+<!-- HEADER DO MÓDULO -->
+<header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 rounded-2xl border border-emerald-500/30 p-8 mb-10">
+<div class="mb-4">
+<span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-sm font-semibold rounded-full border border-emerald-500/30">MODULE 1.1</span>
+</div>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🏭 What is the AI Strategy Factory</h1>
+<p class="text-neutral-300 text-lg leading-relaxed mb-8">
+        Before installing anything, it’s worth understanding what you’re about to use. This module gives you the <strong class="text-emerald-400">complete mind map</strong>: the problem the tool solves, how it works in 3 phases, what it delivers, and why it costs just pennies.
+      </p>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-emerald-400">7</div>
+<div class="text-xs text-neutral-400 mt-1">Topics</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-emerald-400">30</div>
+<div class="text-xs text-neutral-400 mt-1">Minutes</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-emerald-400">⬆</div>
+<div class="text-xs text-neutral-400 mt-1">Beginner</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-emerald-400">📖</div>
+<div class="text-xs text-neutral-400 mt-1">Theory</div>
+</div>
+</div>
+</header>
+<!-- SVG FUTURISTA — fan-out: 1 nome de empresa → categorias → pacote -->
+<div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-6 mb-10">
+<svg aria-label="A company name expands into five document categories (diagnostics, planning, finance, governance, and training) that converge into a single, ready-to-use strategy package" class="w-full h-auto" role="img" viewbox="0 0 1000 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m11-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#34d399"></stop><stop offset="1" stop-color="#10b981"></stop></lineargradient>
+<filter height="180%" id="m11-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m11-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#34d399" opacity="0.10" r="1.3"></circle></pattern>
+<marker id="m11-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#34d399"></path></marker>
+<marker id="m11-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#m11-grid)" height="240" width="1000" x="0" y="0"></rect>
+<!-- setas origem → categorias -->
+<g fill="none" opacity="0.6" stroke="#34d399" stroke-width="2">
+<path d="M196,120 C300,120 320,38 452,38" marker-end="url(#m11-ah)"></path>
+<path d="M196,120 C300,120 320,79 452,79" marker-end="url(#m11-ah)"></path>
+<path d="M196,120 L452,120" marker-end="url(#m11-ah)"></path>
+<path d="M196,120 C300,120 320,161 452,161" marker-end="url(#m11-ah)"></path>
+<path d="M196,120 C300,120 320,202 452,202" marker-end="url(#m11-ah)"></path>
+</g>
+<!-- setas categorias → pacote -->
+<g fill="none" opacity="0.5" stroke="#38bdf8" stroke-width="2">
+<path d="M604,38  C700,38 720,120 800,120" marker-end="url(#m11-ahc)"></path>
+<path d="M604,79  C700,79 720,120 800,120" marker-end="url(#m11-ahc)"></path>
+<path d="M604,120 L800,120" marker-end="url(#m11-ahc)"></path>
+<path d="M604,161 C700,161 720,120 800,120" marker-end="url(#m11-ahc)"></path>
+<path d="M604,202 C700,202 720,120 800,120" marker-end="url(#m11-ahc)"></path>
+</g>
+<!-- Origem -->
+<g filter="url(#m11-glow)"><rect fill="#0e2018" height="64" rx="14" stroke="url(#m11-grad)" stroke-width="2.5" width="156" x="40" y="88"></rect></g>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="18" font-weight="600" text-anchor="middle" x="118" y="114">🏢 Company</text>
+<text fill="#6ee7b7" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="118" y="134">just the name</text>
+<!-- Categorias (ciano) -->
+<g font-family="Inter,sans-serif" font-size="12.5" font-weight="600">
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="152" x="452" y="22"></rect><text fill="#bfe6ff" text-anchor="middle" x="528" y="43">🔍 Diagnostics</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="152" x="452" y="63"></rect><text fill="#bfe6ff" text-anchor="middle" x="528" y="84">🗺️ Action plan</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="152" x="452" y="104"></rect><text fill="#bfe6ff" text-anchor="middle" x="528" y="125">💰 Finance/ROI</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="152" x="452" y="145"></rect><text fill="#bfe6ff" text-anchor="middle" x="528" y="166">🛡️ Governance</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="152" x="452" y="186"></rect><text fill="#bfe6ff" text-anchor="middle" x="528" y="207">🎓 Training</text></g>
+</g>
+<!-- Pacote final -->
+<g filter="url(#m11-glow)"><rect fill="#0e2018" height="68" rx="14" stroke="url(#m11-grad)" stroke-width="2.5" width="160" x="800" y="86"></rect></g>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="15" font-weight="600" text-anchor="middle" x="880" y="114">📦 Package</text>
+<text fill="#6ee7b7" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="880" y="134">15 docs + slides</text>
+</svg>
+<p class="text-xs text-neutral-500 mt-3 text-center">Illustrative diagram — from a single company name to a complete strategy package, across five areas.</p>
+</div>
+<!-- DIVISOR -->
+<h2 class="text-2xl font-bold mb-6">Detailed content</h2>
+<!-- TÓPICO 1 -->
+<section class="mb-16" id="topico-1">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">1</span>
+<h2 class="text-2xl font-bold">🎯 The problem it solves</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Almost every company today wants to "do something with AI," but runs into the same wall: a <strong class="text-emerald-400">strategic AI consulting</strong> is expensive, time-consuming, and depends on rare specialists. As a result, most companies stay stuck—with no assessment, no plan, and no idea where to start.
+      </p>
+<div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center"><span class="mr-2">💡</span> The core idea</h3>
+<p class="text-neutral-300">
+          The AI Strategy Factory takes the work a consulting firm would do over several weeks—research, diagnosis, roadmap, return analysis, governance—and automates it. What used to cost thousands of reais now costs pennies, and what took weeks is ready in minutes.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Traditional consulting</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Weeks (sometimes months) to deliver</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Costs thousands of reais</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Depends on experts' availability</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Inaccessible to small businesses</span></li>
+</ul>
+</div>
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ AI Strategy Factory</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Processing time in minutes</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Costs pennies per company</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Runs whenever you want, on demand</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Accessible to anyone</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<div class="bg-dark-900/60 rounded-lg p-4 border border-emerald-500/20 text-center"><div class="text-emerald-400 font-bold text-sm mb-1">🔍 Diagnostics</div><div class="text-xs text-neutral-400">tech, pain points, maturity</div></div>
+<div class="bg-dark-900/60 rounded-lg p-4 border border-emerald-500/20 text-center"><div class="text-emerald-400 font-bold text-sm mb-1">🗺️ Plan</div><div class="text-xs text-neutral-400">roadmap and quick wins</div></div>
+<div class="bg-dark-900/60 rounded-lg p-4 border border-emerald-500/20 text-center"><div class="text-emerald-400 font-bold text-sm mb-1">💰 ROI</div><div class="text-xs text-neutral-400">returns and costs</div></div>
+<div class="bg-dark-900/60 rounded-lg p-4 border border-emerald-500/20 text-center"><div class="text-emerald-400 font-bold text-sm mb-1">🛡️ Governance</div><div class="text-xs text-neutral-400">policy and data</div></div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="mb-16" id="topico-2">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">2</span>
+<h2 class="text-2xl font-bold">⚡ The solution in one sentence</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Everything in this tool fits in one sentence: <strong class="text-emerald-400">you enter a company name and get a complete AI strategy package</strong>. It’s a funnel: one simple input, many ready-to-use outputs. Keeping this mental model in mind makes the rest of the course easy to follow.
+      </p>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-neutral-300 mb-3 flex items-center"><span class="mr-2">⌨️</span> The funnel in practice (command-line mode)</h3>
+<pre class="font-mono text-sm text-emerald-400 bg-dark-900/60 rounded-lg p-4 overflow-x-auto leading-relaxed"><code># Entrada: só o nome da empresa
+python -m strategy_factory.main run "Stripe"
+
+# Saída: uma pasta cheia de entregáveis
+output/stripe/
+├── markdown/        (15 documentos)
+├── presentations/   (2 apresentações .pptx)
+├── documents/       (2 relatórios .docx)
+└── mermaid_images/  (diagramas .png)</code></pre>
+<p class="text-xs text-neutral-500 mt-3">You'll see this command in detail in Track 2. Here, what's important is the format: a name goes in, a package comes out.</p>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Tip — think of it as an “expert draft”</h3>
+<p class="text-neutral-300">
+          The package isn’t the final word: it’s a <strong class="text-white">strong draft</strong>, at the level of an analyst who saves you hours. The value is having 80% ready in minutes—you add your judgment in the final 20%.
+        </p>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="mb-16" id="topico-3">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">3</span>
+<h2 class="text-2xl font-bold">📦 What it delivers</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        The package has four file types. You don’t need to memorize each one now — Track 3 opens them all — but it’s helpful to see the scope of what a single run produces.
+      </p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-dark-800 rounded-xl border border-emerald-500/30 p-5">
+<div class="text-emerald-400 font-bold mb-1">📄 15 documents (.md)</div>
+<p class="text-sm text-neutral-400">Technical diagnosis, pain points, maturity, roadmap, quick wins, ROI, vendor comparison, AI policy, data governance, prompt library, glossary, and more.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-blue-500/30 p-5">
+<div class="text-blue-400 font-bold mb-1">📊 2 presentations (.pptx)</div>
+<p class="text-sm text-neutral-400">An executive summary (10-15 slides) for leadership and a complete presentation (40-50 slides) with all the findings.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<div class="text-purple-400 font-bold mb-1">📝 2 reports (.docx)</div>
+<p class="text-sm text-neutral-400">The final strategy report (everything compiled) and a statement of work with a timeline and costs.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-emerald-500/30 p-5">
+<div class="text-emerald-400 font-bold mb-1">📐 Diagrams (.png)</div>
+<p class="text-sm text-neutral-400">Current architecture, future architecture, data flow, roadmap, and integration—generated from Mermaid code.</p>
+</div>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">📊</span> By the numbers</h3>
+<ul class="space-y-2 text-neutral-300">
+<li><strong>15</strong> text documents, ready to review and customize</li>
+<li><strong>2 + 2</strong> = four Office files (PowerPoint and Word) ready to present</li>
+<li><strong>1 folder</strong> by company — organized by file type</li>
+</ul>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="mb-16" id="topico-4">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">4</span>
+<h2 class="text-2xl font-bold">🔄 The 3 process phases</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Behind the scenes, the tool works in <strong class="text-emerald-400">three phases in sequence</strong>. Knowing this sequence helps you understand the progress bar and know where to look when something goes wrong.
+      </p>
+<div class="space-y-4 mb-6">
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30"><span class="text-emerald-400 font-bold">1</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Research — Perplexity gathers intelligence</h4>
+<p class="text-sm text-neutral-400">Runs 9 to 18 searches about the company and its industry: overview, tech stack, competitors, pain points, and regulations. The results are saved for reuse.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30"><span class="text-blue-400 font-bold">2</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-blue-500/20">
+<h4 class="font-semibold text-blue-400 mb-1">Synthesis — Gemini writes the documents</h4>
+<p class="text-sm text-neutral-400">Uses the research to generate the 15 documents in the right order (some depend on others). This is the phase that turns raw data into clear strategy.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30"><span class="text-emerald-400 font-bold">3</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Generation — your computer assembles everything</h4>
+<p class="text-sm text-neutral-400">Turns the text into PowerPoint and Word files and renders the diagrams as images. This phase runs locally and <strong class="text-emerald-400">has no API cost</strong>.</p>
+</div>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Tip — only the first 2 phases cost money</h3>
+<p class="text-neutral-300">Research and Synthesis use paid AI tools (Perplexity and Gemini). Generation is local and free. That’s why the total cost is so low: the “expensive” part is minimal.</p>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="mb-16" id="topico-5">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">5</span>
+<h2 class="text-2xl font-bold">🧠 The two AIs behind it</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        The tool combines <strong class="text-emerald-400">two AI services with different roles</strong>. Understanding who does what explains why you need two keys — and what each one charges for.
+      </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">🔎 Perplexity — research</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">•</span><span>Searches the internet for up-to-date data, with sources</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">•</span><span>Gather information about the company, industry, and competitors</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">•</span><span>Works in Phase 1 (Research)</span></li>
+</ul>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+<h4 class="font-bold text-blue-400 mb-4">✨ Google Gemini — writing</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-blue-400">•</span><span>Turns research into well-written documents</span></li>
+<li class="flex items-start space-x-2"><span class="text-blue-400">•</span><span>Generates the 15 deliverables in the right order</span></li>
+<li class="flex items-start space-x-2"><span class="text-blue-400">•</span><span>Works in Phase 2 (Synthesis)</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">🔑</span> Tip — two keys, two accounts</h3>
+<p class="text-neutral-300">Each service has its own API key, created on a different website. In the next module, you'll get both—about 10 minutes total, and both have free plans to get started.</p>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="mb-16" id="topico-6">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">6</span>
+<h2 class="text-2xl font-bold">💰 How much it costs</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        This is the part that tends to surprise people: the cost is <strong class="text-emerald-400">ridiculously low</strong>. You only pay for the AI calls in the first two phases—file generation is free.
+      </p>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">📊</span> Cost per company analyzed</h3>
+<ul class="space-y-2 text-neutral-300">
+<li><strong>Quick mode (Quick):</strong> ~US$ 0.05 — great for a first pass</li>
+<li><strong>In-depth mode (Comprehensive):</strong> ~US$ 0.50 — deeper research</li>
+<li><strong>Generation phase:</strong> free (runs on your computer)</li>
+<li><strong>In practice:</strong> you can analyze dozens of companies for just a few dollars</li>
+</ul>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Tip — always start in fast mode</h3>
+<p class="text-neutral-300">For most cases, Quick already delivers a great draft for less than 10 cents. Switch to the in-depth mode only when you need more depth (Track 2 compares the two).</p>
+</div>
+</section>
+<!-- TÓPICO 7 -->
+<section class="mb-16" id="topico-7">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">7</span>
+<h2 class="text-2xl font-bold">👤 Who it’s for</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        The tool is intentionally generic: it works for any company and for different types of users. What they have in common is that <strong class="text-emerald-400">you don't need to know how to code</strong> — just follow the steps in this course.
+      </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ It’s perfect for</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Consultants who want to deliver faster</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Founders evaluating AI in their own business</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Innovation and strategy teams</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Anyone studying AI strategy</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Remember that</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Doesn't replace final human judgment</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Uses public data — not confidential internal data</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Always review before delivering to a client</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>This isn't definitive legal or financial advice</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-3 flex items-center"><span class="mr-2">🎯</span> In short</h3>
+<p class="text-neutral-300">It’s a strategy accelerator: it delivers a quality draft in minutes for a human to refine. With that in mind, you’re ready to install it—that’s the next module.</p>
+</div>
+</section>
+<!-- RESUMO DO MÓDULO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">🏭</span> Module Summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">The problem</strong><span class="text-neutral-400"> — AI consulting is expensive, slow, and hard to come by; this tool makes it accessible.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">The solution</strong><span class="text-neutral-400"> — enter a company name, get a complete strategy package.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">What it delivers</strong><span class="text-neutral-400"> — 15 documents + 2 PPTX + 2 DOCX + diagrams.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">The 3 phases</strong><span class="text-neutral-400"> — Research (Perplexity), Synthesis (Gemini), Generation (local and free).</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">The cost</strong><span class="text-neutral-400"> — ~US$ 0,05 (quick) to ~US$ 0,50 (in-depth) per company.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Who it’s for</strong><span class="text-neutral-400"> — consultants, founders, teams, and students; no programming required.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-emerald-400 mb-2">Next Module:</h3>
+<p class="text-neutral-300"><strong>1.2 — Prerequisites &amp; Installation</strong> — get the two API keys and leave the tool installed and ready to run.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 justify-start">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Back to Track</a>
+<a class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors" href="modulo-1-2.html">Next Module →</a>
+</div>
+</div>
+</section>
+</div><!-- /max-w-4xl -->
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 py-8 mt-16">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm space-y-1">
+<p>🏭 AI Strategy Factory — Complete AI strategy for any company · <a class="text-sky-400 hover:text-sky-300" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a> · 2026</p>
+</div>
+</footer>
+<!-- SCRIPT -->
+<script>
+    const themeToggle=document.getElementById('theme-toggle'),tdi=document.getElementById('theme-toggle-dark-icon'),tli=document.getElementById('theme-toggle-light-icon'),H=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){tdi.classList.remove('hidden');H.classList.remove('dark');}else{tli.classList.remove('hidden');}
+    themeToggle.addEventListener('click',()=>{tdi.classList.toggle('hidden');tli.classList.toggle('hidden');H.classList.toggle('dark');localStorage.setItem('theme',H.classList.contains('dark')?'dark':'light');});
+  </script>
+</body>
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>M2.3 — Lo que ocurre detrás de escena (conceptos) | AI Strategy Factory</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15',
+      dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+    } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    /* Light mode base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light accent: emerald (T1) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .group:hover .group-hover\:text-emerald-400 { color: #059669; }
+    /* Light accent: blue (T2) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.06); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+    /* Light accent: purple (T3) */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.06); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    /* Light - remove gradients + special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.06); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    /* Light - navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    /* Dark - softened borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG light-mode taming */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/curso/trilha2/modulo-2-3.html" hreflang="pt-BR" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/en/curso/trilha2/modulo-2-3.html" hreflang="en" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/es/curso/trilha2/modulo-2-3.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="arckhe-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha2/modulo-2-3.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha2/modulo-2-3.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-2-3.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV — Trilha 2 ativa (blue) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🏭</span><span class="font-bold text-lg hidden sm:inline">AI Strategy Factory</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentos</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10" href="index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Usar a fondo</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Entregables</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<!-- BREADCRUMB -->
+<nav aria-label="breadcrumb" class="flex items-center space-x-2 text-sm text-neutral-400 mb-8">
+<a class="hover:text-blue-400 transition-colors" href="../../index.html">Inicio</a>
+<span>/</span>
+<a class="hover:text-blue-400 transition-colors" href="index.html">Ruta 2</a>
+<span>/</span>
+<span class="text-blue-400">Módulo 2.3</span>
+</nav>
+<!-- HEADER DO MÓDULO -->
+<header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 rounded-2xl border border-blue-500/30 p-8 mb-10">
+<div class="mb-4">
+<span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-sm font-semibold rounded-full border border-blue-500/30">MÓDULO 2.3</span>
+</div>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🧬 Lo que ocurre detrás (conceptos)</h1>
+<p class="text-neutral-300 text-lg leading-relaxed mb-8">
+        Es hora de abrir la caja negra. Vas a entender las <strong class="text-blue-400">3 fases por dentro</strong>, los dos archivos que hacen que todo sea retomable y económico (<span class="font-mono text-base">state.json</span> e <span class="font-mono text-base">research_cache.json</span>), cómo recuperarse de fallas y la estructura exacta de la carpeta <span class="font-mono text-base">output/</span>.
+      </p>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-blue-400">7</div>
+<div class="text-xs text-neutral-400 mt-1">Temas</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-blue-400">40</div>
+<div class="text-xs text-neutral-400 mt-1">Minutos</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-blue-400">🧬</div>
+<div class="text-xs text-neutral-400 mt-1">Conceptos</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-blue-400">⬆</div>
+<div class="text-xs text-neutral-400 mt-1">Intermedio</div>
+</div>
+</div>
+</header>
+<!-- SVG FUTURISTA — pipeline de 3 fases com state.json e cache por baixo -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-6 mb-10">
+<svg aria-label="Las 3 fases — Investigación, Síntesis y Generación — avanzan en secuencia, con research_cache.json guardado durante la Investigación y state.json siguiendo todo el pipeline por debajo" class="w-full h-auto" role="img" viewbox="0 0 1000 260" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m23-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#60a5fa"></stop><stop offset="1" stop-color="#3b82f6"></stop></lineargradient>
+<filter height="180%" id="m23-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m23-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#60a5fa" opacity="0.10" r="1.3"></circle></pattern>
+<marker id="m23-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#60a5fa"></path></marker>
+<marker id="m23-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#m23-grid)" height="260" width="1000" x="0" y="0"></rect>
+<!-- fases em sequência -->
+<g fill="none" opacity="0.6" stroke="#38bdf8" stroke-width="2">
+<path class="wf-a" d="M286,86 L356,86" marker-end="url(#m23-ahc)"></path>
+<path class="wf-a" d="M642,86 L712,86" marker-end="url(#m23-ahc)"></path>
+</g>
+<!-- Fase 1 -->
+<g filter="url(#m23-glow)"><rect fill="#0e1622" height="56" rx="12" stroke="#60a5fa" stroke-width="2" width="246" x="40" y="58"></rect></g>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="14" font-weight="600" text-anchor="middle" x="163" y="82">1️⃣ Investigación · Perplexity</text>
+<text fill="#bfdbfe" font-family="Inter,sans-serif" font-size="10.5" text-anchor="middle" x="163" y="100">9-18 búsquedas</text>
+<!-- Fase 2 -->
+<g filter="url(#m23-glow)"><rect fill="#0e1b26" height="56" rx="12" stroke="#38bdf8" stroke-width="2" width="286" x="356" y="58"></rect></g>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="14" font-weight="600" text-anchor="middle" x="499" y="82">2️⃣ Síntesis · Gemini</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="10.5" text-anchor="middle" x="499" y="100">15 documentos en orden · pausa ~5s</text>
+<!-- Fase 3 -->
+<g filter="url(#m23-glow)"><rect fill="#0e1622" height="56" rx="12" stroke="url(#m23-grad)" stroke-width="2.5" width="246" x="712" y="58"></rect></g>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="14" font-weight="600" text-anchor="middle" x="835" y="82">3️⃣ Generación · local</text>
+<text fill="#bfdbfe" font-family="Inter,sans-serif" font-size="10.5" text-anchor="middle" x="835" y="100">PPTX + DOCX + PNG · gratis</text>
+<!-- cache da pesquisa -->
+<g fill="none" opacity="0.45" stroke="#60a5fa" stroke-dasharray="4 3" stroke-width="1.6"><path d="M163,114 L163,168" marker-end="url(#m23-ah)"></path></g>
+<rect fill="#0e1622" height="40" rx="9" stroke="#60a5fa" stroke-width="1.6" width="198" x="64" y="168"></rect>
+<text fill="#bfdbfe" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="163" y="193">💾 research_cache.json</text>
+<!-- state barra por baixo -->
+<rect fill="#0e1b26" height="30" rx="9" stroke="#38bdf8" stroke-width="1.6" width="918" x="40" y="222"></rect>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="499" y="242">🧭 state.json — sigue la fase, los entregables listos, el costo y los errores (permite reanudar)</text>
+</svg>
+<p class="text-xs text-neutral-500 mt-3 text-center">Diagrama ilustrativo — las 3 fases en secuencia, con la caché de la investigación y el punto de control del estado.</p>
+</div>
+<!-- DIVISOR -->
+<h2 class="text-2xl font-bold mb-6">Contenido detallado</h2>
+<!-- TÓPICO 1 -->
+<section class="mb-16" id="m23-topico-1">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">1</span>
+<h2 class="text-2xl font-bold">1️⃣ Fase 1 — Investigación</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Todo empieza con la recopilación de información. En la primera fase, la <strong class="text-blue-400">Perplexity</strong> hace entre 9 y 18 búsquedas (según el modo) sobre la empresa y el sector. Esta es la materia prima de todos los documentos que vienen después.
+      </p>
+<div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🔍</span> Qué abarca la investigación</h3>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+<div class="bg-dark-900/60 rounded-lg p-4 border border-blue-500/20 text-center"><div class="text-blue-400 font-bold text-sm mb-1">🏢 Descripción general</div><div class="text-xs text-neutral-400">qué hace la empresa</div></div>
+<div class="bg-dark-900/60 rounded-lg p-4 border border-blue-500/20 text-center"><div class="text-blue-400 font-bold text-sm mb-1">🧱 Stack</div><div class="text-xs text-neutral-400">tecnologías utilizadas</div></div>
+<div class="bg-dark-900/60 rounded-lg p-4 border border-blue-500/20 text-center"><div class="text-blue-400 font-bold text-sm mb-1">⚔️ Competidores</div><div class="text-xs text-neutral-400">el escenario</div></div>
+<div class="bg-dark-900/60 rounded-lg p-4 border border-blue-500/20 text-center"><div class="text-blue-400 font-bold text-sm mb-1">😣 Problemas</div><div class="text-xs text-neutral-400">problemas y brechas</div></div>
+<div class="bg-dark-900/60 rounded-lg p-4 border border-blue-500/20 text-center"><div class="text-blue-400 font-bold text-sm mb-1">⚖️ Regulación</div><div class="text-xs text-neutral-400">restricciones del sector</div></div>
+<div class="bg-dark-900/60 rounded-lg p-4 border border-emerald-500/20 text-center"><div class="text-emerald-400 font-bold text-sm mb-1">💾 Guarda todo</div><div class="text-xs text-neutral-400">en la caché</div></div>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo — entra basura, sale basura</h3>
+<p class="text-neutral-300">La calidad de la investigación determina el límite de calidad de los documentos. Por eso, el <span class="font-mono text-xs">--context</span> y la elección del modo (2.1 y 2.2) también importan mucho: mejoran esta fase.</p>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="mb-16" id="m23-topico-2">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">2</span>
+<h2 class="text-2xl font-bold">2️⃣ Fase 2 — Síntesis</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Con la investigación en mano, el <strong class="text-blue-400">Gemini</strong> escribe los 15 documentos. El detalle importante: se generan en <strong class="text-blue-400">orden de dependencia</strong> — algunos solo se crean cuando otros están listos, porque usan el anterior como insumo.
+      </p>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-neutral-300 mb-3 flex items-center"><span class="mr-2">🔗</span> Por qué importa el orden</h3>
+<pre class="font-mono text-sm text-blue-400 bg-dark-900/60 rounded-lg p-4 overflow-x-auto leading-relaxed"><code># Exemplo simplificado da cadeia de dependência:
+
+inventário técnico ─┐
+dores            ───┼─→ avaliação de maturidade ─→ roadmap ─→ quick wins
+                    │
+                    └─→ diagramas, ROI, governança, ...
+
+# Um documento "downstream" lê os documentos "upstream"
+# já prontos. Por isso não dá para gerar tudo em paralelo.</code></pre>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">⏱️</span> La pausa entre llamadas</h3>
+<p class="text-neutral-300 mb-3">Entre una llamada y otra a Gemini, hay una pausa de alrededor de <strong class="text-blue-400">5 segundos</strong>. No es lentitud: es protección. Respeta los límites de solicitudes de la API y evita el error 429.</p>
+<ul class="space-y-2 text-neutral-300">
+<li><strong>15 documentos</strong> generados en secuencia</li>
+<li><strong>~5s de pausa</strong> entre cada uno</li>
+<li><strong>Resultado:</strong> la Síntesis es la fase que más tiempo de espera lleva</li>
+</ul>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo — la paciencia es parte del diseño</h3>
+<p class="text-neutral-300">Si la síntesis parece «detenida», probablemente sea la pausa para respetar el límite. Deja que termine — interrumpirla aquí solo hace que tengas que usar el <span class="font-mono text-xs">resume</span> después.</p>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="mb-16" id="m23-topico-3">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">3</span>
+<h2 class="text-2xl font-bold">3️⃣ Fase 3 — Generación</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        La última fase se ejecuta por completo <strong class="text-blue-400">en tu computadora, sin costo</strong>. Convierte los textos en archivos de Office y renderiza los diagramas como imágenes.
+      </p>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+<div class="bg-dark-800 rounded-xl border border-blue-500/30 p-5">
+<div class="text-blue-400 font-bold mb-1">📊 PPTX</div>
+<p class="text-sm text-neutral-400">Arma los 2 PowerPoint con la biblioteca <span class="font-mono text-xs">python-pptx</span>.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-blue-500/30 p-5">
+<div class="text-blue-400 font-bold mb-1">📝 DOCX</div>
+<p class="text-sm text-neutral-400">Genera los 2 informes en Word a partir de los documentos.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-blue-500/30 p-5">
+<div class="text-blue-400 font-bold mb-1">📐 PNG</div>
+<p class="text-sm text-neutral-400">Renderiza los diagramas Mermaid usando Chrome/Puppeteer.</p>
+</div>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🛠️</span> Qué se ejecuta por debajo</h3>
+<ul class="space-y-2 text-neutral-300">
+<li><strong>python-pptx</strong> — biblioteca de Python que escribe archivos .pptx</li>
+<li><strong>Conversión a .docx</strong> — los informes en Word</li>
+<li><strong>Chrome/Puppeteer</strong> — abre Mermaid y "toma una foto" de cada diagrama en PNG</li>
+<li><strong>Costo:</strong> cero: nada de esto llama a una API de pago</li>
+</ul>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo — ¿falló el diagrama? Es Chrome</h3>
+<p class="text-neutral-300">Si no se generan los PNG, por lo general es porque Chrome/Puppeteer no está disponible. Los documentos de texto igual quedan listos — solo la representación de las imágenes depende de ello.</p>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="mb-16" id="m23-topico-4">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">4</span>
+<h2 class="text-2xl font-bold">💾 El archivo state.json</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Dentro de la carpeta de cada empresa hay un <strong class="text-blue-400">punto de control</strong>: o <span class="font-mono text-sm text-blue-400">state.json</span>. Es el cerebro de la reanudación — guarda todo lo que la herramienta necesita saber para continuar desde donde quedó.
+      </p>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-neutral-300 mb-3 flex items-center"><span class="mr-2">📄</span> Qué guarda (ejemplo)</h3>
+<pre class="font-mono text-sm text-blue-400 bg-dark-900/60 rounded-lg p-4 overflow-x-auto leading-relaxed"><code>{
+  "company": "Stripe",
+  "current_phase": "synthesis",
+  "deliverables_done": ["01_tech_inventory", "02_pain_points"],
+  "cost_spent_usd": 0.31,
+  "errors": []
+}</code></pre>
+<p class="text-xs text-neutral-500 mt-3">Estructura ilustrativa — los campos reales pueden variar, pero la idea es esta: fase, listos, costo y errores.</p>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🧭</span> Por qué es importante</h3>
+<ul class="space-y-2 text-neutral-300">
+<li><strong>Fase actual</strong> — en qué punto del pipeline está el análisis</li>
+<li><strong>Entregables listos</strong> — lo que ya se generó (no lo vuelvas a hacer)</li>
+<li><strong>Costo gastado</strong> — cuánto ha consumido el análisis hasta ahora</li>
+<li><strong>Errores</strong> — lo que salió mal, para el diagnóstico</li>
+<li><strong>Es lo que hace posible el <span class="font-mono text-xs">resume</span></strong></li>
+</ul>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="mb-16" id="m23-topico-5">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">5</span>
+<h2 class="text-2xl font-bold">♻️ El research_cache.json</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Si el <span class="font-mono text-sm text-blue-400">state.json</span> es el cerebro, el <span class="font-mono text-sm text-blue-400">research_cache.json</span> es la caja fuerte: guarda la <strong class="text-blue-400">investigación en bruto de Perplexity</strong>. Como la investigación es la parte que cuesta, esta caché es tu mayor aliada para ahorrar.
+      </p>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-neutral-300 mb-3 flex items-center"><span class="mr-2">⌨️</span> Reutilizando la investigación</h3>
+<pre class="font-mono text-sm text-blue-400 bg-dark-900/60 rounded-lg p-4 overflow-x-auto leading-relaxed"><code># A primeira execução paga a pesquisa e a grava no cache
+python -m strategy_factory.main run "Stripe"
+
+# Mexeu num prompt e quer só regerar os documentos?
+# Reusa o cache — não paga a pesquisa de novo:
+python -m strategy_factory.main run "Stripe" --skip-research</code></pre>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Con la caché puedes</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Volver a generar documentos casi gratis</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Ajustar prompts y ver el efecto rápidamente</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Rehacer solo la generación de archivos</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ La caché NO ayuda cuando</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Quieres datos más actuales (repite la investigación)</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Cambió el contexto y quieres investigar de nuevo</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Pasa de Quick a Comprehensive de verdad</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo — la investigación es lo que cuesta</h3>
+<p class="text-neutral-300">Recuerda la Fase 3: la generación ya es gratis. El mayor gasto está en la investigación (Fase 1). Reutilizarla con <span class="font-mono text-xs">--skip-research</span> es lo que hace que tus experimentos cuesten casi nada.</p>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="mb-16" id="m23-topico-6">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">6</span>
+<h2 class="text-2xl font-bold">🔌 Reanudar y recuperar</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Los fallos ocurren: presionas Ctrl+C, se cae internet o se agota el límite de la API. La buena noticia es que, gracias a <span class="font-mono text-sm text-blue-400">state.json</span>, nunca pierdes el trabajo (ni el dinero) que ya invertiste.
+      </p>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-neutral-300 mb-3 flex items-center"><span class="mr-2">⌨️</span> Continuar desde donde lo dejaste</h3>
+<pre class="font-mono text-sm text-blue-400 bg-dark-900/60 rounded-lg p-4 overflow-x-auto leading-relaxed"><code># Caiu no meio? Apenas retome:
+python -m strategy_factory.main resume "Stripe"
+
+# Em erro 429 (limite atingido):
+#   1. Espere alguns minutos
+#   2. Rode o resume novamente</code></pre>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">⏱️</span> Tipos de fallas y qué hacer</h3>
+<div class="space-y-4">
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30"><span class="text-blue-400 font-bold">⌨️</span></div>
+<div class="flex-1"><h4 class="font-semibold text-white">Ctrl+C / cerraste la terminal</h4><p class="text-sm text-neutral-400">O <span class="font-mono text-xs">state.json</span> guardó el punto. Ejecuta <span class="font-mono text-xs">resume</span> y continúa.</p></div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30"><span class="text-blue-400 font-bold">📡</span></div>
+<div class="flex-1"><h4 class="font-semibold text-white">Se cayó internet</h4><p class="text-sm text-neutral-400">Vuelve a conectarte y ejecútalo <span class="font-mono text-xs">resume</span>. La investigación ya realizada proviene de la caché.</p></div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center border border-red-500/30"><span class="text-red-400 font-bold">429</span></div>
+<div class="flex-1"><h4 class="font-semibold text-red-400">Error 429 — límite de solicitudes</h4><p class="text-sm text-neutral-400">Llegaste al límite de la API. Espera unos minutos a que se renueve el límite y ejecuta <span class="font-mono text-xs">resume</span>.</p></div>
+</div>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo — resume se puede repetir sin riesgo</h3>
+<p class="text-neutral-300">No hay problema en ejecutar <span class="font-mono text-xs">resume</span> varias veces: siempre revisa el <span class="font-mono text-xs">state.json</span> y solo hace lo que todavía falta. Nunca vuelve a hacer (ni cobra) lo que ya está listo.</p>
+</div>
+</section>
+<!-- TÓPICO 7 -->
+<section class="mb-16" id="m23-topico-7">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">7</span>
+<h2 class="text-2xl font-bold">📁 La carpeta output/</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Todo lo que produce la herramienta va a parar a un lugar predecible: la carpeta <span class="font-mono text-sm text-blue-400">output/{slug}/</span>, uno por empresa. Conocer esta estructura te permite encontrar cualquier archivo en un instante.
+      </p>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-neutral-300 mb-3 flex items-center"><span class="mr-2">🌳</span> El árbol completo</h3>
+<pre class="font-mono text-sm text-blue-400 bg-dark-900/60 rounded-lg p-4 overflow-x-auto leading-relaxed"><code>output/stripe/
+├── markdown/             # 15 documentos .md
+├── presentations/        # 2 apresentações .pptx
+├── documents/            # 2 relatórios .docx
+├── mermaid_images/       # 5 diagramas .png
+├── state.json            # checkpoint (fase, custo, erros)
+└── research_cache.json   # pesquisa bruta da Perplexity</code></pre>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-dark-800 rounded-xl border border-blue-500/30 p-5">
+<div class="text-blue-400 font-bold mb-1">📄 markdown/ — 15 .md</div>
+<p class="text-sm text-neutral-400">Todos los documentos de texto: desde el inventario técnico hasta el plan de gestión del cambio. La Ruta 3 abre cada uno.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-blue-500/30 p-5">
+<div class="text-blue-400 font-bold mb-1">📊 presentations/ — 2 .pptx</div>
+<p class="text-sm text-neutral-400">Un resumen ejecutivo y una presentación completa con los hallazgos.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-blue-500/30 p-5">
+<div class="text-blue-400 font-bold mb-1">📝 documents/ — 2 .docx</div>
+<p class="text-sm text-neutral-400">El informe de estrategia final y la propuesta de trabajo.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-blue-500/30 p-5">
+<div class="text-blue-400 font-bold mb-1">📐 mermaid_images/ — 5 .png</div>
+<p class="text-sm text-neutral-400">Estado actual, estado futuro, flujo de datos, roadmap e integración.</p>
+</div>
+</div>
+<div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">🎯</span> En resumen</h3>
+<p class="text-neutral-300">Cada empresa = una carpeta autónoma. Los entregables quedan separados por tipo y los dos archivos JSON guardan el estado y la caché. Es todo lo que necesitas para entender, retomar y reutilizar un análisis.</p>
+</div>
+</section>
+<!-- RESUMO DO MÓDULO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">🧬</span> Resumen del módulo</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Fase 1 — Investigación</strong><span class="text-neutral-400"> — Perplexity realiza 9-18 búsquedas (visión, stack, competidores, problemas, regulación) y guarda los resultados.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Fase 2 — Síntesis</strong><span class="text-neutral-400"> — Gemini genera los 15 documentos en orden de dependencia, con una pausa de ~5s entre llamadas.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Fase 3 — Generación</strong><span class="text-neutral-400"> — local y gratis: PPTX (python-pptx), DOCX y PNG (Chrome/Puppeteer).</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">state.json</strong><span class="text-neutral-400"> — checkpoint con fase, entregables listos, costo y errores; permite reanudar.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">research_cache.json</strong><span class="text-neutral-400"> — guarda la investigación en bruto; --skip-research vuelve a generar documentos sin volver a investigar.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Recuperación y output/</strong><span class="text-neutral-400"> — resume continúa desde donde lo dejaste; output/{slug}/ organiza todo por tipo.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-blue-400 mb-2">Próxima Ruta:</h3>
+<p class="text-neutral-300"><strong>Ruta 3 — Entregables</strong> — ahora que dominas la herramienta por dentro, abre cada uno de los 15 documentos y aprende a usarlos en la práctica.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 justify-start">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Volver a la Ruta</a>
+<a class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors" href="../trilha3/index.html">Próxima Ruta →</a>
+</div>
+</div>
+</section>
+</div><!-- /max-w-4xl -->
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 py-8 mt-16">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm space-y-1">
+<p>🏭 AI Strategy Factory — Estrategia de IA completa para cualquier empresa · <a class="text-sky-400 hover:text-sky-300" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a> · 2026</p>
+</div>
+</footer>
+<!-- SCRIPT -->
+<script>
+    const themeToggle=document.getElementById('theme-toggle'),tdi=document.getElementById('theme-toggle-dark-icon'),tli=document.getElementById('theme-toggle-light-icon'),H=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){tdi.classList.remove('hidden');H.classList.remove('dark');}else{tli.classList.remove('hidden');}
+    themeToggle.addEventListener('click',()=>{tdi.classList.toggle('hidden');tli.classList.toggle('hidden');H.classList.toggle('dark');localStorage.setItem('theme',H.classList.contains('dark')?'dark':'light');});
+  </script>
+</body>
+</html>

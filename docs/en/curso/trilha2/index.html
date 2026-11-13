@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Track 2 — Using the Tool in Depth | AI Strategy Factory</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15',
+      dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+    } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    /* Light mode base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light accent: emerald (T1) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .group:hover .group-hover\:text-emerald-400 { color: #059669; }
+    /* Light accent: blue (T2) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.06); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+    /* Light accent: purple (T3) */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.06); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    /* Light - remove gradients + special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.06); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    /* Light - navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    /* Dark - softened borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG light-mode taming */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/curso/trilha2/" hreflang="pt-BR" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/en/curso/trilha2/" hreflang="en" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/es/curso/trilha2/" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="arckhe-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha2/" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="./" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha2/" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV — Trilha 2 ativa (blue) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🏭</span><span class="font-bold text-lg hidden sm:inline">AI Strategy Factory</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentals</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10" href="index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">In Depth</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Deliverables</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- HEADER DE TRILHA -->
+<header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">TRACK 2</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🔵 Using the Tool in Depth</h1>
+<p class="text-lg text-neutral-400 max-w-3xl mb-6">
+        Move beyond clicking and master the terminal: learn all the commands, choose between quick and in-depth modes with cost in mind, and understand what happens behind the scenes to make the magic happen — research, synthesis, and generation.
+      </p>
+<!-- Hero SVG: motor de 3 fases — Pesquisa → Síntese → Geração -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-4 mb-8 max-w-3xl">
+<svg aria-label="The tool’s 3-phase engine: Research feeds Synthesis, which feeds Generation, producing the final deliverables package" class="w-full h-auto" role="img" viewbox="0 0 800 170">
+<defs>
+<lineargradient id="t2-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#60a5fa"></stop><stop offset="100%" stop-color="#38bdf8"></stop>
+</lineargradient>
+<filter height="180%" id="t2-glow" width="140%" x="-20%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<pattern height="40" id="t2-grid" patternunits="userSpaceOnUse" width="40" x="0" y="0">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="#60a5fa18" stroke-width="0.8"></path>
+</pattern>
+<marker id="t2-ah" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3"><polygon fill="#60a5fa" points="0 0, 8 3, 0 6"></polygon></marker>
+<marker id="t2-ahc" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3"><polygon fill="#38bdf8" points="0 0, 8 3, 0 6"></polygon></marker>
+</defs>
+<rect fill="url(#t2-grid)" height="170" width="800" x="0" y="0"></rect>
+<!-- Nó 1: Comando -->
+<rect fill="#0e1622" height="56" rx="11" stroke="#60a5fa" stroke-width="2" width="150" x="24" y="58"></rect>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="13" font-weight="600" text-anchor="middle" x="99" y="82">⌨️ Command</text>
+<text fill="#bfdbfe" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="99" y="100">run "Company"</text>
+<line class="wf-a" marker-end="url(#t2-ah)" stroke="#60a5fa" stroke-width="2" x1="174" x2="214" y1="86" y2="86"></line>
+<!-- Nó 2: Pesquisa -->
+<rect fill="#0e1622" height="56" rx="11" stroke="#60a5fa" stroke-width="2" width="150" x="218" y="58"></rect>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="13" font-weight="600" text-anchor="middle" x="293" y="82">🔍 Research</text>
+<text fill="#bfdbfe" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="293" y="100">Perplexity</text>
+<line class="wf-a" marker-end="url(#t2-ahc)" stroke="#38bdf8" stroke-width="2" x1="368" x2="408" y1="86" y2="86"></line>
+<!-- Nó 3: Síntese -->
+<g filter="url(#t2-glow)"><rect fill="#0e1b26" height="56" rx="11" stroke="#38bdf8" stroke-width="2" width="150" x="412" y="58"></rect></g>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="13" font-weight="600" text-anchor="middle" x="487" y="82">✍️ Synthesis</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="487" y="100">Gemini</text>
+<line class="wf-a" marker-end="url(#t2-ah)" stroke="#60a5fa" stroke-width="2" x1="562" x2="602" y1="86" y2="86"></line>
+<!-- Nó 4: Geração -->
+<g filter="url(#t2-glow)"><rect fill="#0e1622" height="56" rx="11" stroke="url(#t2-grad)" stroke-width="2.5" width="170" x="606" y="58"></rect></g>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="13" font-weight="600" text-anchor="middle" x="691" y="82">⚙️ Generation</text>
+<text fill="#bfdbfe" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="691" y="100">ready-to-use package</text>
+<text fill="#4b5563" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="400" y="148">A 3-phase engine: research feeds the writing, and the writing becomes ready-to-use files.</text>
+</svg>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-4 gap-4 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">3</div>
+<div class="text-xs text-neutral-400">Modules</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">20</div>
+<div class="text-xs text-neutral-400">Topics</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">~1h50</div>
+<div class="text-xs text-neutral-400">Duration</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">Beginner→Intermediate</div>
+<div class="text-xs text-neutral-400">Level</div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<!-- MAPA DA TRILHA -->
+<section class="mb-12">
+<h2 class="text-2xl font-bold mb-6">Track map</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-blue-500/30 p-5 transition-all" href="#modulo-2-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-blue-400 font-bold text-sm">2.1</span>
+<span class="text-xs text-neutral-500">~40 min</span>
+</div>
+<h3 class="font-semibold mb-1 group-hover:text-blue-400 transition-colors">⌨️ Command line in practice</h3>
+<p class="text-xs text-neutral-400">The power of the terminal</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-blue-500/30 p-5 transition-all" href="#modulo-2-2">
+<div class="flex items-center justify-between mb-2">
+<span class="text-blue-400 font-bold text-sm">2.2</span>
+<span class="text-xs text-neutral-500">~30 min</span>
+</div>
+<h3 class="font-semibold mb-1 group-hover:text-blue-400 transition-colors">⚖️ Quick vs. Comprehensive modes</h3>
+<p class="text-xs text-neutral-400">Low-cost vs. in-depth</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-blue-500/30 p-5 transition-all" href="#modulo-2-3">
+<div class="flex items-center justify-between mb-2">
+<span class="text-blue-400 font-bold text-sm">2.3</span>
+<span class="text-xs text-neutral-500">~40 min</span>
+</div>
+<h3 class="font-semibold mb-1 group-hover:text-blue-400 transition-colors">🧬 Behind the scenes (concepts)</h3>
+<p class="text-xs text-neutral-400">How the magic happens</p>
+</a>
+</div>
+</section>
+<!-- CONTEÚDO DETALHADO -->
+<h2 class="text-2xl font-bold mb-6">Detailed content</h2>
+<!-- ==================== MÓDULO 2.1 ==================== -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-2-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-blue-400 font-bold">2.1</span>
+<span class="text-xs text-neutral-500">~40 min</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">⌨️ Command line in practice</h3>
+<p class="text-neutral-400 text-sm">The web interface is great for getting started, but the terminal is where the tool gains superpowers: automation, batches, and precision. Seven topics about the main command and its flags.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<!-- Tópico 1 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🧩 Why use the CLI</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">When the terminal beats the web</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">The CLI (command-line interface) uses the same engine as the web app, but you operate it with text. It shines when you want to run several companies in sequence, automate tasks, use it on a headless server, or repeat an analysis precisely.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Anyone who only uses the web is limited to one company at a time, click by click. The CLI unlocks scale and repeatability — that’s what separates casual use from professional use.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Batches: multiple companies in sequence</li><li>Automation and server use</li><li>Accuracy: the same command, the same result</li></ul></div>
+</div>
+</div>
+<!-- Tópico 2 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">▶️ The run command</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">The heart of the tool</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">The central command is <span class="font-mono text-xs text-blue-400">python -m strategy_factory.main run "Stripe"</span>. It runs the 3 phases and creates the folder <span class="font-mono text-xs">output/stripe</span> with everything: documents, presentations, Word, and diagrams.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">This is the command you'll use most. All the flags we'll cover next are variations of it. Mastering the <span class="font-mono text-xs">run</span> is mastering 90% of the tool.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>run "Company" = complete pipeline</li><li>Name in quotes becomes the output/slug folder</li><li>Always activate the venv before running</li></ul></div>
+</div>
+</div>
+<!-- Tópico 3 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">💬 The --context flag</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Give the research some clues</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">Add <span class="font-mono text-xs text-blue-400">--context "B2B payments, fintech"</span> to provide context for the research. This guides Perplexity and improves the quality of the 15 documents.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">For lesser-known companies or those with ambiguous names, context makes all the difference — it keeps the AI from researching the wrong company.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>--context = industry, model, size</li><li>Free text in quotation marks</li><li>Optional, but recommended</li></ul></div>
+</div>
+</div>
+<!-- Tópico 4 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">⚙️ The --mode flag</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Quick or in-depth</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">Use <span class="font-mono text-xs text-blue-400">--mode quick</span> (the default) for a quick, inexpensive pass, or <span class="font-mono text-xs text-blue-400">--mode comprehensive</span> for more in-depth research — and higher costs.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">This is the flag that has the biggest effect on cost and time. Module 2.2 is devoted entirely to it — for now, you just need to know it exists and what each value does.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>quick = default, ~9 searches</li><li>comprehensive = ~18 searches, more in-depth</li><li>The 15 documents are the same in both</li></ul></div>
+</div>
+</div>
+<!-- Tópico 5 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">5</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🧪 The --dry-run flag</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Simulate without spending</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">With <span class="font-mono text-xs text-blue-400">--dry-run</span>, the tool simulates the execution and shows what would be generated, <strong class="text-blue-400">without making any AI calls</strong> — in other words, at no cost.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">This is the best way to test the installation and keys before spending any money. If the dry run runs without errors, your setup is correct.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>--dry-run = simulation, zero cost</li><li>Shows the execution plan</li><li>Great for validating the setup</li></ul></div>
+</div>
+</div>
+<!-- Tópico 6 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">6</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">📋 status &amp; list</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">View progress and history</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">The command <span class="font-mono text-xs text-blue-400">status "Stripe" --detailed</span> shows the progress and cost of an analysis; <span class="font-mono text-xs text-blue-400">list</span> lists all companies analyzed so far.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">These are your inspection commands: find out what’s already been done, how much it cost, and what’s still missing—without reopening each folder by hand.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>status "Company" --detailed = progress + cost</li><li>list = all analyses completed</li><li>They don't use the API; they're read locally</li></ul></div>
+</div>
+</div>
+<!-- Tópico 7 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">7</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🔁 resume, reset &amp; skip</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Resume, clear, and reuse</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300"><span class="font-mono text-xs text-blue-400">resume "Stripe"</span> resume where you left off; <span class="font-mono text-xs text-blue-400">reset "Stripe" --yes</span> clears everything; and the flags <span class="font-mono text-xs">--skip-research</span>, <span class="font-mono text-xs">--skip-synthesis</span> e <span class="font-mono text-xs">--skip-generation</span> reuse results already saved in the cache.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">These are your recovery and cost-saving commands: never redo (and pay for again) a step that already worked. We’ll return to them in Module 2.3.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>resume = continues where it left off</li><li>reset --yes = start over from scratch</li><li>--skip-* = skips phases already in cache</li></ul></div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-2-1')">View in Modal</button>
+<a class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors" href="modulo-2-1.html">View Full Version</a>
+</div>
+</div>
+<!-- ==================== MÓDULO 2.2 ==================== -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-2-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-blue-400 font-bold">2.2</span>
+<span class="text-xs text-neutral-500">~30 min</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">⚖️ Quick vs. Comprehensive modes</h3>
+<p class="text-neutral-400 text-sm">The most important choice for each analysis: fast and cheap, or deep and comprehensive. Six topics to help you decide with cost and quality in mind.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<!-- Tópico 1 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🔢 The key difference</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">9 searches vs. 18 searches</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">The difference is in the <strong class="text-blue-400">research depth</strong>: Quick mode does about 9 searches; Comprehensive does about 18. The 15 generated documents are exactly the same—the richness of the source material is what changes.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Knowing the output is the same dispels a common myth: Comprehensive doesn't generate "more documents"; it generates better-grounded documents.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Quick ≈ 9 searches</li><li>Comprehensive ≈ 18 searches</li><li>Same 15 documents in both</li></ul></div>
+</div>
+</div>
+<!-- Tópico 2 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🐇 Quick Mode</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">2-3 min, ~US$ 0,05</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">The default mode. It takes 2 to 3 minutes and costs about US$ 0,05 per company. It’s the quick pass, ideal for an initial overview and screening multiple companies.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Because it’s inexpensive and fast, it’s the natural starting point. You can evaluate many companies for a few cents before taking a deeper look at the ones that matter.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>This is the default (no flag needed)</li><li>2-3 min · ~US$ 0,05</li><li>Use it for screening and a first pass</li></ul></div>
+</div>
+</div>
+<!-- Tópico 3 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🐢 Comprehensive Mode</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">5–10 min, ~US$ 0.50</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">The in-depth run. It takes 5 to 10 minutes and costs about US$ 0,50 per company. The research is broader and more detailed—ideal for the company you’re actually going to present to.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">When the result is going to a client or executive leadership, it’s worth paying 10x more (still just cents) to get the best possible grounding.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>--mode comprehensive</li><li>5–10 min · ~US$ 0.50</li><li>Use it for the company you’ll be presenting to</li></ul></div>
+</div>
+</div>
+<!-- Tópico 4 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🧠 The models behind it</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">sonar, sonar-pro, deep-research</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">In Quick mode, the research uses only the model <span class="font-mono text-xs text-blue-400">sonar</span> (cheap and fast). In Comprehensive, it combines <span class="font-mono text-xs">sonar</span> + <span class="font-mono text-xs">sonar-pro</span> + <span class="font-mono text-xs">sonar-deep-research</span>. In both cases, synthesis always uses Gemini <span class="font-mono text-xs">gemini-2.5-flash</span>.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Understanding which models are used in each mode explains why Comprehensive costs more: it uses more expensive, powerful models for research.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Quick = sonar</li><li>Comprehensive = sonar + sonar-pro + deep-research</li><li>Always use gemini-2.5-flash for summaries</li></ul></div>
+</div>
+</div>
+<!-- Tópico 5 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">5</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">💵 Side-by-side costs</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">The cost of both modes</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">In practice: Quick costs between ~US$ 0,02 and US$ 0,15; Comprehensive costs between ~US$ 0,31 and US$ 0,90. The generation phase (local) is always free.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Even the most expensive mode costs less than a dollar. Seeing the numbers side by side shows that “expensive” here is still extremely cheap compared with consulting.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Quick ~US$ 0,02-0,15</li><li>Comprehensive ~US$ 0,31-0,90</li><li>Local generation = free</li></ul></div>
+</div>
+</div>
+<!-- Tópico 6 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">6</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🧭 How to choose</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Triage → dig deeper</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">The winning strategy: screen several companies in Quick, then run the chosen one in Comprehensive. If you already have the basic research, use <span class="font-mono text-xs text-blue-400">--skip-research</span> so you don't have to pay again.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">This is the workflow that balances cost and quality: you spend more only where it's worthwhile, after filtering with the cheaper option.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Triage in Quick, dig deeper in Comprehensive</li><li>Simple decision tree: presenting it? → comprehensive</li><li>--skip-research avoids repeated research</li></ul></div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-2-2')">View in Modal</button>
+<a class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors" href="modulo-2-2.html">View Full Version</a>
+</div>
+</div>
+<!-- ==================== MÓDULO 2.3 ==================== -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-2-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-blue-400 font-bold">2.3</span>
+<span class="text-xs text-neutral-500">~40 min</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">🧬 Behind the scenes (concepts)</h3>
+<p class="text-neutral-400 text-sm">Open the black box: the 3 phases behind the scenes, the state and cache files that make everything resumable and cost-effective, and the output folder structure. Seven topics that demystify the tool.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<!-- Tópico 1 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">1️⃣ Phase 1 — Research</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Perplexity collects everything</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">In the first phase, Perplexity performs 9 to 18 searches about the company: overview, technology stack, competitors, pain points, and regulations. Everything is collected and saved for the next phases.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">This is the raw material for everything. Without good research, the documents come out weak — that's why context and mode matter so much.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>9–18 searches depending on the mode</li><li>Covers company, industry, competitors, and regulations</li><li>Result saved for reuse</li></ul></div>
+</div>
+</div>
+<!-- Tópico 2 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">2️⃣ Phase 2 — Synthesis</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Gemini writes in order</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">In the second phase, Gemini generates the 15 documents in <strong class="text-blue-400">dependency order</strong> — some are written only after others are ready. There’s a ~5s pause between calls to stay within the API limits.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Understanding the sequence explains why the phase takes a little while and why you can’t generate everything at once: one document uses the previous one as input.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>15 documents in dependency order</li><li>Pause for ~5s between calls</li><li>Respects Gemini's request limit</li></ul></div>
+</div>
+</div>
+<!-- Tópico 3 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">3️⃣ Phase 3 — Generation</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Local and free</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">The third phase runs on your computer at no cost: it builds the 2 PPTX files (with the python-pptx library), the 2 DOCX files, and renders the Mermaid diagrams as PNGs (using Chrome/Puppeteer under the hood).</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">That’s why the total cost is so low: the part that turns into “polished files” doesn’t use any API—it all runs locally.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>PPTX via python-pptx</li><li>DOCX and PNG diagrams</li><li>Mermaid rendered with Chrome/Puppeteer</li></ul></div>
+</div>
+</div>
+<!-- Tópico 4 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">💾 The state.json file</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">The analysis checkpoint</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">O <span class="font-mono text-xs text-blue-400">state.json</span> is the analysis checkpoint: it records the current phase, which deliverables are ready, the cost incurred, and the errors found.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">This is exactly the file that lets the command <span class="font-mono text-xs">resume</span>: without it, the tool wouldn’t know where to pick up.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Stores the phase, completed deliverables, cost, and errors</li><li>This is what makes resume possible</li><li>Stays in the company folder</li></ul></div>
+</div>
+</div>
+<!-- Tópico 5 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">5</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">♻️ The research_cache.json</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">The saved research</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">O <span class="font-mono text-xs text-blue-400">research_cache.json</span> stores Perplexity’s raw research. With it, you can regenerate the documents without researching again, using <span class="font-mono text-xs">--skip-research</span>.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">This is your biggest ally in saving money: research is the part that costs. Reusing it means you can tweak and regenerate documents for almost nothing.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Stores Perplexity’s raw research</li><li>--skip-research reuses this cache</li><li>Regenerate documents without paying to redo the research</li></ul></div>
+</div>
+</div>
+<!-- Tópico 6 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">6</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🔌 Resume &amp; recovery</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">When something goes wrong</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">If you interrupt with Ctrl+C or the internet goes down, just run <span class="font-mono text-xs text-blue-400">resume "Empresa"</span> to pick up where you left off. For a 429 error (request limit), wait a few minutes and resume.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Failures happen. Knowing how to recover without losing your work (or the money you’ve already spent) is what makes everyday use stress-free.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>resume continues where it left off</li><li>Error 429 = limit reached → wait and resume</li><li>The state.json preserves progress</li></ul></div>
+</div>
+</div>
+<!-- Tópico 7 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">7</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">📁 The output/ folder</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Where everything is saved</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">What it is</p><p class="text-sm text-neutral-300">Each company gets its own folder <span class="font-mono text-xs text-blue-400">output/{slug}/</span> with subfolders: <span class="font-mono text-xs">markdown/</span> (15 .md), <span class="font-mono text-xs">presentations/</span> (2 .pptx), <span class="font-mono text-xs">documents/</span> (2 .docx), <span class="font-mono text-xs">mermaid_images/</span> (5 .png), in addition to <span class="font-mono text-xs">state.json</span> e <span class="font-mono text-xs">research_cache.json</span>.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Why learn</p><p class="text-sm text-neutral-300">Knowing the structure helps you find any file right away—and understand what each one is. Track 3 walks through the contents of each deliverable.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Key concepts</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>output/{slug}/ per company</li><li>markdown, presentations, documents, mermaid_images</li><li>+ state.json and research_cache.json</li></ul></div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-2-3')">View in Modal</button>
+<a class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors" href="modulo-2-3.html">View Full Version</a>
+</div>
+</div>
+<!-- NAVEGAÇÃO FIM -->
+<div class="flex justify-between items-center py-8 border-t border-dark-600 mt-8">
+<a class="flex items-center space-x-2 text-neutral-400 hover:text-blue-400 transition-colors" href="../../index.html">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="text-sm">Back to the beginning</span>
+</a>
+<a class="flex items-center space-x-2 text-neutral-400 hover:text-purple-400 transition-colors" href="../trilha3/index.html">
+<span class="text-sm">Next Track: Deliverables</span>
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</div>
+</main>
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 py-8 mt-16">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm space-y-1">
+<p>🏭 AI Strategy Factory — Complete AI strategy for any company · <a class="text-sky-400 hover:text-sky-300" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a> · 2026</p>
+</div>
+</footer>
+<!-- MODAIS -->
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-2-1" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-blue-400 font-bold">2.1</span><span class="font-semibold">⌨️ Command line in practice</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-2-1.html"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-2-2" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-blue-400 font-bold">2.2</span><span class="font-semibold">⚖️ Quick vs. Comprehensive modes</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-2-2.html"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-2-3" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-blue-400 font-bold">2.3</span><span class="font-semibold">🧬 Behind the scenes (concepts)</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-2-3.html"></iframe>
+</div>
+</div>
+<!-- SCRIPTS -->
+<script>
+    function toggleTopic(b){const t=b.closest('.topic-item'),e=t.querySelector('.topic-explanation'),c=b.closest('.bg-dark-800');c.querySelectorAll('.topic-explanation.active').forEach(x=>{if(x!==e)x.classList.remove('active');});e.classList.toggle('active');}
+    function openModal(id){const m=document.getElementById(id);if(m){m.classList.remove('hidden');document.body.style.overflow='hidden';}}
+    function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList.add('hidden'));document.body.style.overflow='auto';}
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+    const themeToggle=document.getElementById('theme-toggle'),tdi=document.getElementById('theme-toggle-dark-icon'),tli=document.getElementById('theme-toggle-light-icon'),H=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){tdi.classList.remove('hidden');H.classList.remove('dark');}else{tli.classList.remove('hidden');}
+    themeToggle.addEventListener('click',()=>{tdi.classList.toggle('hidden');tli.classList.toggle('hidden');H.classList.toggle('dark');localStorage.setItem('theme',H.classList.contains('dark')?'dark':'light');});
+  </script>
+</body>
+</html>

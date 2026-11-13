@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ruta 2 — Uso a fondo de la herramienta | AI Strategy Factory</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15',
+      dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+    } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    /* Light mode base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light accent: emerald (T1) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .group:hover .group-hover\:text-emerald-400 { color: #059669; }
+    /* Light accent: blue (T2) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.06); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+    /* Light accent: purple (T3) */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.06); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    /* Light - remove gradients + special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.06); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    /* Light - navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    /* Dark - softened borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG light-mode taming */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/curso/trilha2/" hreflang="pt-BR" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/en/curso/trilha2/" hreflang="en" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/es/curso/trilha2/" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="arckhe-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha2/" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha2/" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="./" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV — Trilha 2 ativa (blue) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🏭</span><span class="font-bold text-lg hidden sm:inline">AI Strategy Factory</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentos</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10" href="index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Usar a fondo</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Entregables</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- HEADER DE TRILHA -->
+<header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">RUTA 2</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🔵 Uso avanzado de la herramienta</h1>
+<p class="text-lg text-neutral-400 max-w-3xl mb-6">
+        Deja atrás los clics y domina la terminal: aprende todos los comandos, elige entre los modos rápido y profundo con conciencia del costo, y entiende lo que ocurre detrás de escena para que suceda la magia — investigación, síntesis y generación.
+      </p>
+<!-- Hero SVG: motor de 3 fases — Pesquisa → Síntese → Geração -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-4 mb-8 max-w-3xl">
+<svg aria-label="El motor de 3 fases de la herramienta: la Investigación alimenta la Síntesis, que alimenta la Generación, y produce el paquete final de entregables" class="w-full h-auto" role="img" viewbox="0 0 800 170">
+<defs>
+<lineargradient id="t2-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#60a5fa"></stop><stop offset="100%" stop-color="#38bdf8"></stop>
+</lineargradient>
+<filter height="180%" id="t2-glow" width="140%" x="-20%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<pattern height="40" id="t2-grid" patternunits="userSpaceOnUse" width="40" x="0" y="0">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="#60a5fa18" stroke-width="0.8"></path>
+</pattern>
+<marker id="t2-ah" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3"><polygon fill="#60a5fa" points="0 0, 8 3, 0 6"></polygon></marker>
+<marker id="t2-ahc" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3"><polygon fill="#38bdf8" points="0 0, 8 3, 0 6"></polygon></marker>
+</defs>
+<rect fill="url(#t2-grid)" height="170" width="800" x="0" y="0"></rect>
+<!-- Nó 1: Comando -->
+<rect fill="#0e1622" height="56" rx="11" stroke="#60a5fa" stroke-width="2" width="150" x="24" y="58"></rect>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="13" font-weight="600" text-anchor="middle" x="99" y="82">⌨️ Comando</text>
+<text fill="#bfdbfe" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="99" y="100">run "Empresa"</text>
+<line class="wf-a" marker-end="url(#t2-ah)" stroke="#60a5fa" stroke-width="2" x1="174" x2="214" y1="86" y2="86"></line>
+<!-- Nó 2: Pesquisa -->
+<rect fill="#0e1622" height="56" rx="11" stroke="#60a5fa" stroke-width="2" width="150" x="218" y="58"></rect>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="13" font-weight="600" text-anchor="middle" x="293" y="82">🔍 Investigación</text>
+<text fill="#bfdbfe" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="293" y="100">Perplexity</text>
+<line class="wf-a" marker-end="url(#t2-ahc)" stroke="#38bdf8" stroke-width="2" x1="368" x2="408" y1="86" y2="86"></line>
+<!-- Nó 3: Síntese -->
+<g filter="url(#t2-glow)"><rect fill="#0e1b26" height="56" rx="11" stroke="#38bdf8" stroke-width="2" width="150" x="412" y="58"></rect></g>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="13" font-weight="600" text-anchor="middle" x="487" y="82">✍️ Síntesis</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="487" y="100">Gemini</text>
+<line class="wf-a" marker-end="url(#t2-ah)" stroke="#60a5fa" stroke-width="2" x1="562" x2="602" y1="86" y2="86"></line>
+<!-- Nó 4: Geração -->
+<g filter="url(#t2-glow)"><rect fill="#0e1622" height="56" rx="11" stroke="url(#t2-grad)" stroke-width="2.5" width="170" x="606" y="58"></rect></g>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="13" font-weight="600" text-anchor="middle" x="691" y="82">⚙️ Generación</text>
+<text fill="#bfdbfe" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="691" y="100">paquete listo</text>
+<text fill="#4b5563" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="400" y="148">Un motor de 3 fases: la investigación alimenta la redacción y la redacción se convierte en archivos listos.</text>
+</svg>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-4 gap-4 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">3</div>
+<div class="text-xs text-neutral-400">Módulos</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">20</div>
+<div class="text-xs text-neutral-400">Temas</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">~1h50</div>
+<div class="text-xs text-neutral-400">Duración</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">Principiante→Intermedio</div>
+<div class="text-xs text-neutral-400">Nivel</div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<!-- MAPA DA TRILHA -->
+<section class="mb-12">
+<h2 class="text-2xl font-bold mb-6">Mapa de la ruta</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-blue-500/30 p-5 transition-all" href="#modulo-2-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-blue-400 font-bold text-sm">2.1</span>
+<span class="text-xs text-neutral-500">~40 min</span>
+</div>
+<h3 class="font-semibold mb-1 group-hover:text-blue-400 transition-colors">⌨️ Línea de comandos en la práctica</h3>
+<p class="text-xs text-neutral-400">El poder de la terminal</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-blue-500/30 p-5 transition-all" href="#modulo-2-2">
+<div class="flex items-center justify-between mb-2">
+<span class="text-blue-400 font-bold text-sm">2.2</span>
+<span class="text-xs text-neutral-500">~30 min</span>
+</div>
+<h3 class="font-semibold mb-1 group-hover:text-blue-400 transition-colors">⚖️ Modos Quick vs Comprehensive</h3>
+<p class="text-xs text-neutral-400">Económico vs. profundo</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-blue-500/30 p-5 transition-all" href="#modulo-2-3">
+<div class="flex items-center justify-between mb-2">
+<span class="text-blue-400 font-bold text-sm">2.3</span>
+<span class="text-xs text-neutral-500">~40 min</span>
+</div>
+<h3 class="font-semibold mb-1 group-hover:text-blue-400 transition-colors">🧬 Lo que ocurre detrás (conceptos)</h3>
+<p class="text-xs text-neutral-400">Cómo ocurre la magia</p>
+</a>
+</div>
+</section>
+<!-- CONTEÚDO DETALHADO -->
+<h2 class="text-2xl font-bold mb-6">Contenido detallado</h2>
+<!-- ==================== MÓDULO 2.1 ==================== -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-2-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-blue-400 font-bold">2.1</span>
+<span class="text-xs text-neutral-500">~40 min</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">⌨️ Línea de comandos en la práctica</h3>
+<p class="text-neutral-400 text-sm">La interfaz web es ideal para empezar, pero el terminal es donde la herramienta adquiere superpoderes: automatización, lotes y precisión. Siete temas sobre el comando central y sus flags.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<!-- Tópico 1 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🧩 Por qué usar el CLI</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Cuando la terminal le gana a la web</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">El CLI (línea de comandos) es el mismo motor de la web, pero se opera mediante texto. Destaca cuando quieres ejecutar varias empresas en secuencia, automatizar tareas, usarlo en un servidor sin pantalla o repetir un análisis con precisión.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Quien solo usa la web queda limitado a una empresa por vez, haciendo clic. El CLI desbloquea la escala y la repetibilidad: eso es lo que distingue el uso casual del profesional.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Lotes: varias empresas en secuencia</li><li>Automatización y uso en servidor</li><li>Precisión: el mismo comando, el mismo resultado</li></ul></div>
+</div>
+</div>
+<!-- Tópico 2 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">▶️ El comando run</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">El corazón de la herramienta</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">El comando central es <span class="font-mono text-xs text-blue-400">python -m strategy_factory.main run "Stripe"</span>. Activa las 3 fases y crea la carpeta <span class="font-mono text-xs">output/stripe</span> con todo: documentos, presentaciones, Word y diagramas.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Es el comando que más vas a usar. Todas las opciones que veremos a continuación son variantes de este. Dominar el <span class="font-mono text-xs">run</span> es dominar el 90% de la herramienta.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>run "Empresa" = pipeline completo</li><li>El nombre entre comillas se convierte en la carpeta output/slug</li><li>Activa siempre el venv antes de ejecutar</li></ul></div>
+</div>
+</div>
+<!-- Tópico 3 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">💬 La flag --context</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Dale pistas a la investigación</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">Agrega <span class="font-mono text-xs text-blue-400">--context "B2B payments, fintech"</span> para dar contexto a la investigación. Esto orienta a Perplexity y mejora la calidad de los 15 documentos.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Para empresas poco conocidas o con nombres ambiguos, el contexto marca toda la diferencia: evita que la IA investigue la empresa equivocada.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>--context = sector, modelo, tamaño</li><li>Texto libre entre comillas</li><li>Opcional, pero recomendado</li></ul></div>
+</div>
+</div>
+<!-- Tópico 4 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">⚙️ La flag --mode</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Rápido o en profundidad</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">Usa <span class="font-mono text-xs text-blue-400">--mode quick</span> (el estándar) para una pasada rápida y barata, o <span class="font-mono text-xs text-blue-400">--mode comprehensive</span> para una investigación más profunda y más costosa.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Es la opción que más influye en el costo y el tiempo. El Módulo 2.2 completo está dedicado a ella; aquí basta con saber que existe y qué hace cada valor.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>quick = estándar, ~9 búsquedas</li><li>comprehensive = ~18 búsquedas, más profundo</li><li>Los 15 documentos son los mismos en ambos</li></ul></div>
+</div>
+</div>
+<!-- Tópico 5 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">5</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🧪 La flag --dry-run</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Simular sin gastar</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">Con <span class="font-mono text-xs text-blue-400">--dry-run</span>, la herramienta simula la ejecución y muestra lo que se generaría, <strong class="text-blue-400">sin hacer ninguna llamada de IA</strong> — es decir, sin costo.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Es la mejor forma de probar la instalación y las claves antes de gastar de verdad. Si el dry-run se ejecuta sin errores, tu configuración es correcta.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>--dry-run = simulación, costo cero</li><li>Muestra el plan de ejecución</li><li>Ideal para validar la configuración</li></ul></div>
+</div>
+</div>
+<!-- Tópico 6 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">6</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">📋 estado y lista</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Ver progreso e historial</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">El comando <span class="font-mono text-xs text-blue-400">status "Stripe" --detailed</span> muestra el progreso y el costo de un análisis; <span class="font-mono text-xs text-blue-400">list</span> lista todas las empresas ya analizadas.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Son tus comandos de inspección: descubrir qué ya se hizo, cuánto costó y qué falta — sin volver a abrir cada carpeta a mano.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>status "Empresa" --detailed = progreso + costo</li><li>list = todos los análisis realizados</li><li>No consumen API; son lectura local</li></ul></div>
+</div>
+</div>
+<!-- Tópico 7 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">7</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🔁 reanudar, restablecer y omitir</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Retomar, limpiar y reutilizar</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300"><span class="font-mono text-xs text-blue-400">resume "Stripe"</span> retoma desde donde te quedaste; <span class="font-mono text-xs text-blue-400">reset "Stripe" --yes</span> lo limpia todo; y las flags <span class="font-mono text-xs">--skip-research</span>, <span class="font-mono text-xs">--skip-synthesis</span> e <span class="font-mono text-xs">--skip-generation</span> reutilizan resultados ya guardados en caché.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Son tus comandos de recuperación y ahorro: nunca repitas (ni vuelvas a pagar) una etapa que ya salió bien. Volvemos a ellos en el Módulo 2.3.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>resume = continúa lo que quedó pendiente</li><li>reset --yes = empieza desde cero</li><li>--skip-* = omite fases que ya están en caché</li></ul></div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-2-1')">Ver en Modal</button>
+<a class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors" href="modulo-2-1.html">Ver completo</a>
+</div>
+</div>
+<!-- ==================== MÓDULO 2.2 ==================== -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-2-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-blue-400 font-bold">2.2</span>
+<span class="text-xs text-neutral-500">~30 min</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">⚖️ Modos Quick vs Comprehensive</h3>
+<p class="text-neutral-400 text-sm">La elección más importante en cada análisis: rápido y barato, o profundo y completo. Seis temas para que decidas con criterio sobre el costo y la calidad.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<!-- Tópico 1 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🔢 La diferencia central</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">9 búsquedas vs. 18 búsquedas</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">La diferencia está en la <strong class="text-blue-400">profundidad de la investigación</strong>: el modo Quick hace unas 9 búsquedas; el Comprehensive, unas 18. Los 15 documentos generados son exactamente los mismos: lo que cambia es la riqueza de la materia prima.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Saber que el resultado es el mismo desmonta un mito común: Comprehensive no genera "más documentos", sino documentos mejor fundamentados.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Quick ≈ 9 búsquedas</li><li>Comprehensive ≈ 18 búsquedas</li><li>Los mismos 15 documentos en ambos</li></ul></div>
+</div>
+</div>
+<!-- Tópico 2 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🐇 Modo Quick</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">2-3 min, ~US$ 0,05</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">El modo predeterminado. Tarda de 2 a 3 minutos y cuesta cerca de US$ 0,05 por empresa. Es una pasada rápida, ideal para obtener una primera visión y evaluar varias empresas.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Como es barato y rápido, es el punto de partida natural. Puedes evaluar muchas empresas por unos pocos centavos antes de profundizar en las que importan.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Es el valor predeterminado (sin necesidad de opción)</li><li>2-3 min · ~US$ 0,05</li><li>Úsala para filtrar y hacer una primera revisión</li></ul></div>
+</div>
+</div>
+<!-- Tópico 3 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🐢 Modo Comprehensive</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">5-10 min, ~US$ 0,50</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">El análisis profundo. Toma de 5 a 10 minutos y cuesta cerca de US$ 0,50 por empresa. La investigación es más amplia y detallada: ideal para la empresa que realmente vas a presentar.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Cuando el resultado se entrega a un cliente o a la directiva, vale la pena pagar 10x más (aun así, centavos) para tener el mejor respaldo posible.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>--mode comprehensive</li><li>5-10 min · ~US$ 0,50</li><li>Úsala en la empresa que vas a presentar</li></ul></div>
+</div>
+</div>
+<!-- Tópico 4 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🧠 Los modelos detrás</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">sonar, sonar-pro, deep-research</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">En Quick, la investigación usa solo el modelo <span class="font-mono text-xs text-blue-400">sonar</span> (barato y rápido). En Comprehensive, combina <span class="font-mono text-xs">sonar</span> + <span class="font-mono text-xs">sonar-pro</span> + <span class="font-mono text-xs">sonar-deep-research</span>. La síntesis, en ambos casos, siempre usa Gemini <span class="font-mono text-xs">gemini-2.5-flash</span>.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Entender qué modelos se usan en cada modo explica por qué Comprehensive cuesta más: usa modelos más caros y potentes para la investigación.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Quick = sonar</li><li>Comprehensive = sonar + sonar-pro + deep-research</li><li>Síntesis siempre = gemini-2.5-flash</li></ul></div>
+</div>
+</div>
+<!-- Tópico 5 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">5</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">💵 Costos lado a lado</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">El costo de los dos modos</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">En la práctica: Quick cuesta entre ~US$ 0,02 y US$ 0,15; Comprehensive, entre ~US$ 0,31 y US$ 0,90. La fase de generación (local) siempre es gratuita.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Incluso el modo más caro cuesta menos de un dólar. Ver las cifras lado a lado muestra que lo «caro» aquí sigue siendo baratísimo en comparación con una consultoría.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Quick ~US$ 0,02-0,15</li><li>Comprehensive ~US$ 0,31-0,90</li><li>Generación local = gratis</li></ul></div>
+</div>
+</div>
+<!-- Tópico 6 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">6</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🧭 Cómo elegir</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Clasificar → profundizar</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">La estrategia ganadora: filtrar varias empresas en Quick y luego ejecutar la elegida en Comprehensive. Si ya tienes la investigación básica, usa <span class="font-mono text-xs text-blue-400">--skip-research</span> para no volver a pagar.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Es el flujo que equilibra costo y calidad: solo gastas en lo caro cuando vale la pena, después de filtrar con lo barato.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Clasifica en Quick y profundiza en Comprehensive</li><li>Árbol de decisión simple: ¿vas a presentar? → comprehensive</li><li>--skip-research evita repetir la investigación</li></ul></div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-2-2')">Ver en Modal</button>
+<a class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors" href="modulo-2-2.html">Ver completo</a>
+</div>
+</div>
+<!-- ==================== MÓDULO 2.3 ==================== -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-2-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-blue-400 font-bold">2.3</span>
+<span class="text-xs text-neutral-500">~40 min</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">🧬 Lo que ocurre detrás (conceptos)</h3>
+<p class="text-neutral-400 text-sm">Abre la caja negra: las 3 fases por dentro, los archivos de estado y caché que permiten reanudar el trabajo y ahorrar costos, y la estructura de la carpeta de salida. Siete temas que despejan el "misterio" de la herramienta.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<!-- Tópico 1 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">1️⃣ Fase 1 — Investigación</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Perplexity recopila todo</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">En la primera fase, Perplexity realiza de 9 a 18 búsquedas sobre la empresa: descripción general, stack tecnológico, competidores, problemas y regulación. Todo se recopila y guarda para las fases siguientes.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Es la materia prima de todo. Sin una buena investigación, los documentos quedan débiles; por eso el contexto y el modo son tan importantes.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>9-18 búsquedas según el modo</li><li>Cubre empresa, sector, competidores y regulación</li><li>Resultado guardado para reutilizar</li></ul></div>
+</div>
+</div>
+<!-- Tópico 2 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">2️⃣ Fase 2 — Síntesis</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Gemini escribe en orden</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">En la segunda fase, Gemini genera los 15 documentos en <strong class="text-blue-400">orden de dependencia</strong> — algunos solo se escriben cuando otros están listos. Hay una pausa de ~5s entre las llamadas para respetar los límites de la API.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Entender el orden explica por qué la fase tarda un poco y por qué no se puede generar todo de una vez: un documento usa el anterior como insumo.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>15 documentos en orden de dependencia</li><li>Pausa de ~5s entre llamadas</li><li>Respeta el límite de solicitudes de Gemini</li></ul></div>
+</div>
+</div>
+<!-- Tópico 3 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">3️⃣ Fase 3 — Generación</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Local y gratis</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">La tercera fase se ejecuta en tu computadora, sin costo: crea los 2 PPTX (con la biblioteca python-pptx), los 2 DOCX y renderiza los diagramas Mermaid en PNG (usando Chrome/Puppeteer internamente).</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Por eso el costo total es tan bajo: la parte que se convierte en «archivos bonitos» no consume ninguna API; todo se hace localmente.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>PPTX mediante python-pptx</li><li>DOCX y diagramas PNG</li><li>Mermaid renderizado con Chrome/Puppeteer</li></ul></div>
+</div>
+</div>
+<!-- Tópico 4 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">💾 El archivo state.json</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">El punto de control del análisis</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">O <span class="font-mono text-xs text-blue-400">state.json</span> es el punto de control del análisis: guarda la fase actual, los entregables que ya están listos, el costo acumulado y los errores encontrados.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Es exactamente este archivo el que permite el comando <span class="font-mono text-xs">resume</span>: sin él, la herramienta no sabría desde dónde continuar.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Guarda la fase, los entregables listos, el costo y los errores</li><li>Es lo que hace posible el resume</li><li>Queda en la carpeta de la empresa</li></ul></div>
+</div>
+</div>
+<!-- Tópico 5 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">5</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">♻️ El research_cache.json</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">La investigación guardada</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">O <span class="font-mono text-xs text-blue-400">research_cache.json</span> guarda la investigación sin procesar de Perplexity. Con él, puedes volver a generar los documentos sin investigar de nuevo, usando <span class="font-mono text-xs">--skip-research</span>.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Es tu mayor aliado para ahorrar: la investigación es la parte que cuesta. Reutilizarla significa ajustar y volver a generar documentos casi gratis.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Guarda la investigación sin procesar de Perplexity</li><li>--skip-research reutiliza esta caché</li><li>Volver a generar documentos sin pagar otra vez por la investigación</li></ul></div>
+</div>
+</div>
+<!-- Tópico 6 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">6</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🔌 Reanudar y recuperar</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Cuando algo sale mal</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">Si interrumpes el proceso con Ctrl+C o se cae internet, basta con ejecutar <span class="font-mono text-xs text-blue-400">resume "Empresa"</span> para continuar desde donde te quedaste. Si aparece un error 429 (límite de solicitudes), espera unos minutos y retoma.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Los fallos ocurren. Saber cómo recuperarte sin perder el trabajo (ni el dinero ya gastado) es lo que hace que el uso diario sea tranquilo.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>resume continúa desde donde se quedó</li><li>Error 429 = límite alcanzado → esperar y reanudar</li><li>state.json conserva el progreso</li></ul></div>
+</div>
+</div>
+<!-- Tópico 7 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0">7</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">📁 La carpeta output/</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Dónde se guarda todo</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">Cada empresa se convierte en una carpeta <span class="font-mono text-xs text-blue-400">output/{slug}/</span> con subcarpetas: <span class="font-mono text-xs">markdown/</span> (15 .md), <span class="font-mono text-xs">presentations/</span> (2 .pptx), <span class="font-mono text-xs">documents/</span> (2 .docx), <span class="font-mono text-xs">mermaid_images/</span> (5 .png), además de <span class="font-mono text-xs">state.json</span> e <span class="font-mono text-xs">research_cache.json</span>.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Conocer la estructura te permite encontrar cualquier archivo al instante y entender qué es cada uno. La Ruta 3 abre el contenido de cada entregable.</p></div>
+<div><p class="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>output/{slug}/ por empresa</li><li>markdown, presentations, documents, mermaid_images</li><li>+ state.json y research_cache.json</li></ul></div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-2-3')">Ver en Modal</button>
+<a class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors" href="modulo-2-3.html">Ver completo</a>
+</div>
+</div>
+<!-- NAVEGAÇÃO FIM -->
+<div class="flex justify-between items-center py-8 border-t border-dark-600 mt-8">
+<a class="flex items-center space-x-2 text-neutral-400 hover:text-blue-400 transition-colors" href="../../index.html">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="text-sm">Volver al inicio</span>
+</a>
+<a class="flex items-center space-x-2 text-neutral-400 hover:text-purple-400 transition-colors" href="../trilha3/index.html">
+<span class="text-sm">Próxima Ruta: Entregables</span>
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</div>
+</main>
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 py-8 mt-16">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm space-y-1">
+<p>🏭 AI Strategy Factory — Estrategia de IA completa para cualquier empresa · <a class="text-sky-400 hover:text-sky-300" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a> · 2026</p>
+</div>
+</footer>
+<!-- MODAIS -->
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-2-1" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-blue-400 font-bold">2.1</span><span class="font-semibold">⌨️ Línea de comandos en la práctica</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-2-1.html"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-2-2" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-blue-400 font-bold">2.2</span><span class="font-semibold">⚖️ Modos Quick vs Comprehensive</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-2-2.html"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-2-3" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-blue-400 font-bold">2.3</span><span class="font-semibold">🧬 Lo que ocurre detrás (conceptos)</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-2-3.html"></iframe>
+</div>
+</div>
+<!-- SCRIPTS -->
+<script>
+    function toggleTopic(b){const t=b.closest('.topic-item'),e=t.querySelector('.topic-explanation'),c=b.closest('.bg-dark-800');c.querySelectorAll('.topic-explanation.active').forEach(x=>{if(x!==e)x.classList.remove('active');});e.classList.toggle('active');}
+    function openModal(id){const m=document.getElementById(id);if(m){m.classList.remove('hidden');document.body.style.overflow='hidden';}}
+    function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList.add('hidden'));document.body.style.overflow='auto';}
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+    const themeToggle=document.getElementById('theme-toggle'),tdi=document.getElementById('theme-toggle-dark-icon'),tli=document.getElementById('theme-toggle-light-icon'),H=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){tdi.classList.remove('hidden');H.classList.remove('dark');}else{tli.classList.remove('hidden');}
+    themeToggle.addEventListener('click',()=>{tdi.classList.toggle('hidden');tli.classList.toggle('hidden');H.classList.toggle('dark');localStorage.setItem('theme',H.classList.contains('dark')?'dark':'light');});
+  </script>
+</body>
+</html>

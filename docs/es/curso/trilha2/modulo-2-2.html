@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>M2.2 — Modos Quick vs Comprehensive | AI Strategy Factory</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15',
+      dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+    } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    /* Light mode base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light accent: emerald (T1) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .group:hover .group-hover\:text-emerald-400 { color: #059669; }
+    /* Light accent: blue (T2) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.06); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+    /* Light accent: purple (T3) */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.06); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    /* Light - remove gradients + special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.06); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    /* Light - navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    /* Dark - softened borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG light-mode taming */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/curso/trilha2/modulo-2-2.html" hreflang="pt-BR" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/en/curso/trilha2/modulo-2-2.html" hreflang="en" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/es/curso/trilha2/modulo-2-2.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="arckhe-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha2/modulo-2-2.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha2/modulo-2-2.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-2-2.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV — Trilha 2 ativa (blue) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🏭</span><span class="font-bold text-lg hidden sm:inline">AI Strategy Factory</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentos</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10" href="index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Usar a fondo</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Entregables</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<!-- BREADCRUMB -->
+<nav aria-label="breadcrumb" class="flex items-center space-x-2 text-sm text-neutral-400 mb-8">
+<a class="hover:text-blue-400 transition-colors" href="../../index.html">Inicio</a>
+<span>/</span>
+<a class="hover:text-blue-400 transition-colors" href="index.html">Ruta 2</a>
+<span>/</span>
+<span class="text-blue-400">Módulo 2.2</span>
+</nav>
+<!-- HEADER DO MÓDULO -->
+<header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 rounded-2xl border border-blue-500/30 p-8 mb-10">
+<div class="mb-4">
+<span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-sm font-semibold rounded-full border border-blue-500/30">MÓDULO 2.2</span>
+</div>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">⚖️ Modos Quick vs Comprehensive</h1>
+<p class="text-neutral-300 text-lg leading-relaxed mb-8">
+        En cada análisis eliges: <strong class="text-blue-400">rápido y barato</strong> o <strong class="text-blue-400">profunda y completa</strong>. Este módulo despeja la confusión — muestra qué cambia (y qué no), los modelos detrás, los costos lado a lado y una regla sencilla para decidir.
+      </p>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-blue-400">6</div>
+<div class="text-xs text-neutral-400 mt-1">Temas</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-blue-400">30</div>
+<div class="text-xs text-neutral-400 mt-1">Minutos</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-blue-400">💵</div>
+<div class="text-xs text-neutral-400 mt-1">Costo</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-blue-400">⚖️</div>
+<div class="text-xs text-neutral-400 mt-1">Decisión</div>
+</div>
+</div>
+</header>
+<!-- SVG FUTURISTA — duas rotas: quick vs comprehensive → mesmos 15 docs -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-6 mb-10">
+<svg aria-label="Dos rutas de investigación — quick con 9 búsquedas y comprehensive con 18 búsquedas — convergen en los mismos 15 documentos; solo varía el nivel de profundidad" class="w-full h-auto" role="img" viewbox="0 0 1000 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m22-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#60a5fa"></stop><stop offset="1" stop-color="#3b82f6"></stop></lineargradient>
+<filter height="180%" id="m22-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m22-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#60a5fa" opacity="0.10" r="1.3"></circle></pattern>
+<marker id="m22-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#60a5fa"></path></marker>
+<marker id="m22-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#m22-grid)" height="240" width="1000" x="0" y="0"></rect>
+<!-- origem → rotas -->
+<g fill="none" opacity="0.6" stroke="#60a5fa" stroke-width="2">
+<path d="M186,120 C280,120 300,64 392,64" marker-end="url(#m22-ah)"></path>
+<path d="M186,120 C280,120 300,176 392,176" marker-end="url(#m22-ah)"></path>
+</g>
+<!-- rotas → docs -->
+<g fill="none" opacity="0.5" stroke="#38bdf8" stroke-width="2">
+<path d="M612,64  C720,64 740,120 800,120" marker-end="url(#m22-ahc)"></path>
+<path d="M612,176 C720,176 740,120 800,120" marker-end="url(#m22-ahc)"></path>
+</g>
+<!-- origem -->
+<g filter="url(#m22-glow)"><rect fill="#0e1622" height="68" rx="14" stroke="url(#m22-grad)" stroke-width="2.5" width="156" x="30" y="86"></rect></g>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="15" font-weight="600" text-anchor="middle" x="108" y="114">▶️ run</text>
+<text fill="#bfdbfe" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="108" y="134">--mode ?</text>
+<!-- rotas -->
+<g font-family="Inter,sans-serif">
+<g class="wf-a"><rect fill="#0e1622" height="44" rx="11" stroke="#60a5fa" stroke-width="2" width="220" x="392" y="42"></rect><text fill="#bfdbfe" font-size="13" font-weight="600" text-anchor="middle" x="502" y="62">🐇 quick · ~9 búsquedas</text><text fill="#8fb6e6" font-size="10.5" text-anchor="middle" x="502" y="78">2-3 min · ~US$ 0,05</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="44" rx="11" stroke="#38bdf8" stroke-width="2" width="220" x="392" y="154"></rect><text fill="#9ad6ff" font-size="13" font-weight="600" text-anchor="middle" x="502" y="174">🐢 comprehensive · ~18 búsquedas</text><text fill="#7bbbe0" font-size="10.5" text-anchor="middle" x="502" y="190">5-10 min · ~US$ 0,50</text></g>
+</g>
+<!-- docs -->
+<g filter="url(#m22-glow)"><rect fill="#0e1622" height="68" rx="14" stroke="url(#m22-grad)" stroke-width="2.5" width="170" x="800" y="86"></rect></g>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="15" font-weight="600" text-anchor="middle" x="885" y="114">📦 15 documentos</text>
+<text fill="#bfdbfe" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="885" y="134">los mismos en los 2</text>
+</svg>
+<p class="text-xs text-neutral-500 mt-3 text-center">Diagrama ilustrativo — los dos modos llegan a los mismos documentos; lo que cambia es la profundidad de la investigación.</p>
+</div>
+<!-- DIVISOR -->
+<h2 class="text-2xl font-bold mb-6">Contenido detallado</h2>
+<!-- TÓPICO 1 -->
+<section class="mb-16" id="m22-topico-1">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">1</span>
+<h2 class="text-2xl font-bold">🔢 La diferencia central</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Existe un mito común: que el modo Comprehensive "genera más cosas". No es cierto. La diferencia es solo una — la <strong class="text-blue-400">profundidad de la investigación</strong>. Quick hace unas 9 búsquedas; Comprehensive, unas 18. Los 15 documentos finales son exactamente los mismos.
+      </p>
+<div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">💡</span> La idea central</h3>
+<p class="text-neutral-300">
+          Piensa en una redacción: ambos modos escriben el mismo número de páginas con la misma estructura. Comprehensive simplemente leyó el doble de fuentes antes de escribir; por eso, las páginas quedan mejor fundamentadas, con más detalle y matices.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Qué CAMBIA entre los modos</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Número de búsquedas (9 vs 18)</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Profundidad y matices de los documentos</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Tiempo de ejecución</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Costo</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Lo que NO cambia</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>La cantidad de documentos (siempre 15)</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Los tipos de archivo (PPTX, DOCX, PNG)</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>La estructura de la carpeta output/</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>El modelo de síntesis (siempre el mismo Gemini)</span></li>
+</ul>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="mb-16" id="m22-topico-2">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">2</span>
+<h2 class="text-2xl font-bold">🐇 Modo Quick</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Quick es el modo predeterminado — ni siquiera necesitas escribir la flag. Es rápido (2-3 minutos) y muy barato (~US$ 0,05). Piensa en él como tu herramienta de <strong class="text-blue-400">selección</strong>.
+      </p>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-neutral-300 mb-3 flex items-center"><span class="mr-2">⌨️</span> Ejecutando en modo Quick</h3>
+<pre class="font-mono text-sm text-blue-400 bg-dark-900/60 rounded-lg p-4 overflow-x-auto leading-relaxed"><code># Estas duas linhas fazem a mesma coisa
+python -m strategy_factory.main run "Stripe"
+python -m strategy_factory.main run "Stripe" --mode quick
+
+# ~9 buscas · 2-3 min · ~US$ 0,05</code></pre>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🎯</span> Cuándo usar Quick</h3>
+<ul class="space-y-2 text-neutral-300">
+<li><strong>Clasificación por lotes</strong> — comparar varias empresas rápidamente</li>
+<li><strong>Primera pasada</strong> — tener una visión general antes de decidir</li>
+<li><strong>Pruebas y estudio</strong> — cuando el costo debe ser mínimo</li>
+<li><strong>Empresas en las que quizá ni profundices</strong></li>
+</ul>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo — empieza siempre aquí</h3>
+<p class="text-neutral-300">Para la gran mayoría de los casos, Quick ya ofrece un excelente borrador. Pasa a Comprehensive solo cuando el resultado realmente vaya a presentarse (a un cliente o al directorio).</p>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="mb-16" id="m22-topico-3">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">3</span>
+<h2 class="text-2xl font-bold">🐢 Modo Comprehensive</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Comprehensive es la pasada profunda. Tarda de 5 a 10 minutos y cuesta alrededor de US$ 0,50 — diez veces más que Quick, pero aun así menos de un dólar. Es el modo para la empresa que vas a <strong class="text-blue-400">presentar de verdad</strong>.
+      </p>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-neutral-300 mb-3 flex items-center"><span class="mr-2">⌨️</span> Ejecutando en modo Comprehensive</h3>
+<pre class="font-mono text-sm text-blue-400 bg-dark-900/60 rounded-lg p-4 overflow-x-auto leading-relaxed"><code># A flag é obrigatória aqui
+python -m strategy_factory.main run "Stripe" --mode comprehensive
+
+# Com contexto, o resultado fica ainda melhor
+python -m strategy_factory.main run "Stripe" \
+  --mode comprehensive \
+  --context "B2B payments, fintech"
+
+# ~18 buscas · 5-10 min · ~US$ 0,50</code></pre>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+<h4 class="font-bold text-blue-400 mb-4">✓ Vale la pena cuando</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>El resultado se entregará a un cliente real</span></li>
+<li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Vas a presentar ante la directiva</span></li>
+<li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>La empresa es compleja o está poco documentada</span></li>
+<li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Quieres el máximo respaldo</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Es exagerado cuando</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Solo estás evaluando muchas empresas</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Es una prueba o un estudio rápido</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Aún no decidiste si vas a usar el resultado</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>El tiempo es más importante que la profundidad</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo — 10x más caro sigue costando centavos</h3>
+<p class="text-neutral-300">"Diez veces más caro" suena a mucho, pero es la diferencia entre 5 y 50 centavos de dólar. Cuando el resultado importa, esta es la mejor inversión que harás en el día.</p>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="mb-16" id="m22-topico-4">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">4</span>
+<h2 class="text-2xl font-bold">🧠 Los modelos detrás</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        ¿Por qué Comprehensive cuesta más? Porque usa modelos de IA más caros y potentes en la investigación. Entender qué modelos se usan en cada modo explica el costo.
+      </p>
+<div class="space-y-4 mb-6">
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30"><span class="text-blue-400 font-bold">🐇</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-blue-500/20">
+<h4 class="font-semibold text-blue-400 mb-1">Quick → solo el sonar</h4>
+<p class="text-sm text-neutral-400">Usa solo el modelo <span class="font-mono text-xs">sonar</span> de Perplexity — barato y rápido. Es suficiente para tener una buena visión general.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30"><span class="text-blue-400 font-bold">🐢</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-blue-500/20">
+<h4 class="font-semibold text-blue-400 mb-1">Comprehensive → sonar + sonar-pro + deep-research</h4>
+<p class="text-sm text-neutral-400">Combina <span class="font-mono text-xs">sonar</span>, <span class="font-mono text-xs">sonar-pro</span> e <span class="font-mono text-xs">sonar-deep-research</span>. Modelos más potentes (y más caros) que buscan en profundidad.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30"><span class="text-emerald-400 font-bold">✍️</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-emerald-500/20">
+<h4 class="font-semibold text-emerald-400 mb-1">Síntesis → siempre Gemini</h4>
+<p class="text-sm text-neutral-400">En ambos modos, la redacción usa el mismo modelo: <span class="font-mono text-xs">gemini-2.5-flash</span>. Por eso los documentos tienen el mismo formato: cambia la materia prima, no quien escribe.</p>
+</div>
+</div>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">🔑</span> En resumen, los modelos</h3>
+<ul class="space-y-2 text-neutral-300">
+<li><strong>Investigación (Quick):</strong> <span class="font-mono text-xs">sonar</span></li>
+<li><strong>Investigación (Comprehensive):</strong> <span class="font-mono text-xs">sonar</span> + <span class="font-mono text-xs">sonar-pro</span> + <span class="font-mono text-xs">sonar-deep-research</span></li>
+<li><strong>Síntesis (siempre):</strong> <span class="font-mono text-xs">gemini-2.5-flash</span></li>
+</ul>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="mb-16" id="m22-topico-5">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">5</span>
+<h2 class="text-2xl font-bold">💵 Costos lado a lado</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Las cifras varían un poco según el tamaño de la empresa y cuánto haya que investigar. Aquí están los rangos reales de los dos modos, y un recordatorio de que la generación siempre es gratis.
+      </p>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-neutral-300 mb-3 flex items-center"><span class="mr-2">📊</span> Tabla de costos (por empresa)</h3>
+<pre class="font-mono text-sm text-neutral-300 bg-dark-900/60 rounded-lg p-4 overflow-x-auto leading-relaxed"><code>┌─────────────────┬────────────┬──────────────────┐
+│ MODO            │ TEMPO      │ CUSTO            │
+├─────────────────┼────────────┼──────────────────┤
+│ 🐇 Quick        │ 2-3 min    │ ~US$ 0,02 - 0,15 │
+│ 🐢 Comprehensive│ 5-10 min   │ ~US$ 0,31 - 0,90 │
+│ ⚙️  Geração      │ local      │ GRÁTIS           │
+└─────────────────┴────────────┴──────────────────┘</code></pre>
+<p class="text-xs text-neutral-500 mt-3">La generación (PPTX, DOCX, PNG) se ejecuta en tu computadora y no consume API; por eso siempre es gratis.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+<div class="bg-dark-800 rounded-xl border border-blue-500/30 p-5 text-center">
+<div class="text-blue-400 font-bold text-2xl mb-1">~US$ 0,05</div>
+<p class="text-sm text-neutral-400">costo típico de Quick</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-blue-500/30 p-5 text-center">
+<div class="text-blue-400 font-bold text-2xl mb-1">~US$ 0,50</div>
+<p class="text-sm text-neutral-400">costo típico de Comprehensive</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-emerald-500/30 p-5 text-center">
+<div class="text-emerald-400 font-bold text-2xl mb-1">US$ 0,00</div>
+<p class="text-sm text-neutral-400">fase de generación</p>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo — comprueba el gasto real</h3>
+<p class="text-neutral-300">¿Quieres saber cuánto costó un análisis específico? Ejecuta <span class="font-mono text-xs">status "Empresa" --detailed</span>: muestra el costo registrado en el <span class="font-mono text-xs">state.json</span>.</p>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="mb-16" id="m22-topico-6">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">6</span>
+<h2 class="text-2xl font-bold">🧭 Cómo elegir</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        La estrategia ganadora es sencilla: <strong class="text-blue-400">evaluar varias empresas en Quick y profundizar solo en la elegida con Comprehensive</strong>. Y cuando profundices, reutiliza la investigación que ya tienes.
+      </p>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-neutral-300 mb-3 flex items-center"><span class="mr-2">🌳</span> Árbol de decisión</h3>
+<pre class="font-mono text-sm text-blue-400 bg-dark-900/60 rounded-lg p-4 overflow-x-auto leading-relaxed"><code>Você vai apresentar/entregar este resultado?
+│
+├─ NÃO  → 🐇 Quick (triagem, estudo, primeira passada)
+│
+└─ SIM  → 🐢 Comprehensive
+          │
+          └─ Já rodou Quick nesta empresa antes?
+             │
+             ├─ SIM → --mode comprehensive --skip-research?
+             │        (avalie: pesquisa básica já serve?)
+             │
+             └─ NÃO → --mode comprehensive (pesquisa do zero)</code></pre>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">⏱️</span> El flujo recomendado, paso a paso</h3>
+<div class="space-y-4">
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30"><span class="text-blue-400 font-bold">1</span></div>
+<div class="flex-1"><h4 class="font-semibold text-white">Clasifica en Quick</h4><p class="text-sm text-neutral-400">Ejecuta <span class="font-mono text-xs">run "Empresa"</span> para cada candidata. En total cuesta unos centavos.</p></div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30"><span class="text-blue-400 font-bold">2</span></div>
+<div class="flex-1"><h4 class="font-semibold text-white">Elige la ganadora</h4><p class="text-sm text-neutral-400">Lee los borradores rápidos y decide qué empresa merece un análisis más profundo.</p></div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30"><span class="text-emerald-400 font-bold">3</span></div>
+<div class="flex-1"><h4 class="font-semibold text-emerald-400">Profundiza solo en esta</h4><p class="text-sm text-neutral-400">Ejecuta <span class="font-mono text-xs">--mode comprehensive</span> en la elegida. Usa <span class="font-mono text-xs">--skip-research</span> si la investigación básica ya es suficiente.</p></div>
+</div>
+</div>
+</div>
+<div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">🎯</span> En resumen</h3>
+<p class="text-neutral-300">Filtra para ahorrar e invierte más solo donde vale la pena. Este equilibrio entre Quick y Comprehensive es lo que mantiene tus costos mínimos sin renunciar a la calidad cuando importa.</p>
+</div>
+</section>
+<!-- RESUMO DO MÓDULO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">⚖️</span> Resumen del módulo</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">La diferencia principal</strong><span class="text-neutral-400"> — ~9 búsquedas (Quick) vs ~18 (Comprehensive); los 15 documentos son los mismos.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Quick</strong><span class="text-neutral-400"> — estándar, 2-3 min, ~US$ 0,05; ideal para la selección inicial y la primera pasada.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Comprehensive</strong><span class="text-neutral-400"> — 5-10 min, ~US$ 0,50; para la empresa a la que vas a presentar.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Los modelos</strong><span class="text-neutral-400"> — Quick usa sonar; Comprehensive combina sonar-pro y deep-research; la síntesis siempre usa gemini-2.5-flash.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Los costos</strong><span class="text-neutral-400"> — Quick ~US$ 0,02-0,15; Comprehensive ~US$ 0,31-0,90; generación local gratis.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Cómo elegir</strong><span class="text-neutral-400"> — hacer la selección inicial con Quick y profundizar en la elegida con Comprehensive (con --skip-research).</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-blue-400 mb-2">Siguiente módulo:</h3>
+<p class="text-neutral-300"><strong>2.3 — Lo que ocurre entre bastidores (conceptos)</strong> — abre la caja negra: las 3 fases por dentro, los archivos de estado y caché, y la carpeta de salida.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 justify-start">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Volver a la Ruta</a>
+<a class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors" href="modulo-2-3.html">Próximo Módulo →</a>
+</div>
+</div>
+</section>
+</div><!-- /max-w-4xl -->
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 py-8 mt-16">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm space-y-1">
+<p>🏭 AI Strategy Factory — Estrategia de IA completa para cualquier empresa · <a class="text-sky-400 hover:text-sky-300" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a> · 2026</p>
+</div>
+</footer>
+<!-- SCRIPT -->
+<script>
+    const themeToggle=document.getElementById('theme-toggle'),tdi=document.getElementById('theme-toggle-dark-icon'),tli=document.getElementById('theme-toggle-light-icon'),H=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){tdi.classList.remove('hidden');H.classList.remove('dark');}else{tli.classList.remove('hidden');}
+    themeToggle.addEventListener('click',()=>{tdi.classList.toggle('hidden');tli.classList.toggle('hidden');H.classList.toggle('dark');localStorage.setItem('theme',H.classList.contains('dark')?'dark':'light');});
+  </script>
+</body>
+</html>

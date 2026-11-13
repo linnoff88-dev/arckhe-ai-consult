@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ruta 3 — Entregables y buenas prácticas | AI Strategy Factory</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15',
+      dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+    } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    /* Light mode base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light accent: emerald (T1) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .group:hover .group-hover\:text-emerald-400 { color: #059669; }
+    /* Light accent: blue (T2) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.06); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+    /* Light accent: purple (T3) */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.06); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    /* Light - remove gradients + special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.06); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    /* Light - navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    /* Dark - softened borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG light-mode taming */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/curso/trilha3/" hreflang="pt-BR" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/en/curso/trilha3/" hreflang="en" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/es/curso/trilha3/" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="arckhe-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha3/" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="./" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV — Trilha 3 ativa (purple) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🏭</span><span class="font-bold text-lg hidden sm:inline">AI Strategy Factory</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentos</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Usar a fondo</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10" href="index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Entregables</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- HEADER DE TRILHA -->
+<header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">RUTA 3</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🟣 Entregables y buenas prácticas</h1>
+<p class="text-lg text-neutral-400 max-w-3xl mb-6">
+        Ahora que sabes cómo generar el paquete, aprende qué contiene: los 15 documentos uno por uno, las presentaciones e informes listos para la dirección, y cómo resolver problemas y sacar el máximo provecho de la herramienta.
+      </p>
+<!-- Hero SVG: pacote → 5 categorias de entregáveis -->
+<div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-4 mb-8 max-w-3xl">
+<svg aria-label="Un paquete de entregables se divide en cinco categorías: diagnóstico, plan, finanzas, gobernanza y capacitación, además de presentaciones e informes listos para la dirección" class="w-full h-auto" role="img" viewbox="0 0 800 170">
+<defs>
+<lineargradient id="t3-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#c084fc"></stop><stop offset="100%" stop-color="#38bdf8"></stop>
+</lineargradient>
+<filter height="180%" id="t3-glow" width="140%" x="-20%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<pattern height="40" id="t3-grid" patternunits="userSpaceOnUse" width="40" x="0" y="0">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="#c084fc18" stroke-width="0.8"></path>
+</pattern>
+<marker id="t3-ah" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3"><polygon fill="#c084fc" points="0 0, 8 3, 0 6"></polygon></marker>
+<marker id="t3-ahc" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3"><polygon fill="#38bdf8" points="0 0, 8 3, 0 6"></polygon></marker>
+</defs>
+<rect fill="url(#t3-grid)" height="170" width="800" x="0" y="0"></rect>
+<!-- Pacote (origem) -->
+<g filter="url(#t3-glow)"><rect fill="#1a1230" height="70" rx="12" stroke="url(#t3-grad)" stroke-width="2.5" width="156" x="24" y="50"></rect></g>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="15" font-weight="600" text-anchor="middle" x="102" y="80">📦 El paquete</text>
+<text fill="#d8b4fe" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="102" y="100">19 entregables</text>
+<!-- setas pacote → categorias -->
+<g fill="none" opacity="0.65" stroke="#c084fc" stroke-width="2">
+<path class="wf-a" d="M180,72  C260,72 280,30 360,30" marker-end="url(#t3-ah)"></path>
+<path class="wf-a" d="M180,80  C260,80 280,66 360,66" marker-end="url(#t3-ah)"></path>
+<path class="wf-a" d="M180,86  L360,86" marker-end="url(#t3-ah)"></path>
+<path class="wf-a" d="M180,92  C260,92 280,106 360,106" marker-end="url(#t3-ah)"></path>
+<path class="wf-a" d="M180,100 C260,100 280,142 360,142" marker-end="url(#t3-ah)"></path>
+</g>
+<!-- Categorias -->
+<g font-family="Inter,sans-serif" font-size="11" font-weight="600">
+<rect fill="#1a1230" height="28" rx="8" stroke="#c084fc" stroke-width="1.6" width="150" x="360" y="16"></rect><text fill="#e9d5ff" text-anchor="middle" x="435" y="34">🔍 Diagnóstico</text>
+<rect fill="#1a1230" height="28" rx="8" stroke="#c084fc" stroke-width="1.6" width="150" x="360" y="52"></rect><text fill="#e9d5ff" text-anchor="middle" x="435" y="70">🗺️ Plan</text>
+<rect fill="#1a1230" height="28" rx="8" stroke="#c084fc" stroke-width="1.6" width="150" x="360" y="88"></rect><text fill="#e9d5ff" text-anchor="middle" x="435" y="106">💰 Finanzas</text>
+<rect fill="#1a1230" height="28" rx="8" stroke="#c084fc" stroke-width="1.6" width="150" x="360" y="124"></rect><text fill="#e9d5ff" text-anchor="middle" x="435" y="142">🛡️ Gobernanza</text>
+</g>
+<!-- seta categorias → diretoria -->
+<line class="wf-a" marker-end="url(#t3-ahc)" stroke="#38bdf8" stroke-width="2" x1="510" x2="592" y1="86" y2="86"></line>
+<!-- Diretoria (destino) -->
+<g filter="url(#t3-glow)"><rect fill="#0e1b26" height="70" rx="12" stroke="#38bdf8" stroke-width="2.5" width="180" x="596" y="50"></rect></g>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="14" font-weight="600" text-anchor="middle" x="686" y="80">🎤 Directorio</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="686" y="100">diapositivas + informes</text>
+<text fill="#4b5563" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="400" y="160">Un paquete se convierte en cinco áreas de entregables, listas para presentar a quienes toman las decisiones.</text>
+</svg>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-4 gap-4 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">3</div>
+<div class="text-xs text-neutral-400">Módulos</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">20</div>
+<div class="text-xs text-neutral-400">Temas</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">~1h50</div>
+<div class="text-xs text-neutral-400">Duración</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">Intermedio</div>
+<div class="text-xs text-neutral-400">Nivel</div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<!-- MAPA DA TRILHA -->
+<section class="mb-12">
+<h2 class="text-2xl font-bold mb-6">Mapa de la ruta</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-purple-500/30 p-5 transition-all" href="#modulo-3-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-purple-400 font-bold text-sm">3.1</span>
+<span class="text-xs text-neutral-500">~40 min</span>
+</div>
+<h3 class="font-semibold mb-1 group-hover:text-purple-400 transition-colors">📚 Los 15 documentos explicados</h3>
+<p class="text-xs text-neutral-400">Qué ofrece cada archivo</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-purple-500/30 p-5 transition-all" href="#modulo-3-2">
+<div class="flex items-center justify-between mb-2">
+<span class="text-purple-400 font-bold text-sm">3.2</span>
+<span class="text-xs text-neutral-500">~30 min</span>
+</div>
+<h3 class="font-semibold mb-1 group-hover:text-purple-400 transition-colors">🖼️ Presentaciones y cómo presentar</h3>
+<p class="text-xs text-neutral-400">Del archivo a la dirección</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-purple-500/30 p-5 transition-all" href="#modulo-3-3">
+<div class="flex items-center justify-between mb-2">
+<span class="text-purple-400 font-bold text-sm">3.3</span>
+<span class="text-xs text-neutral-500">~40 min</span>
+</div>
+<h3 class="font-semibold mb-1 group-hover:text-purple-400 transition-colors">🧰 Problemas y buenas prácticas</h3>
+<p class="text-xs text-neutral-400">Resuelve y acierta más</p>
+</a>
+</div>
+</section>
+<!-- CONTEÚDO DETALHADO -->
+<h2 class="text-2xl font-bold mb-6">Contenido detallado</h2>
+<!-- ==================== MÓDULO 3.1 ==================== -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-3-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-purple-400 font-bold">3.1</span>
+<span class="text-xs text-neutral-500">~40 min</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">📚 Los 15 documentos explicados</h3>
+<p class="text-neutral-400 text-sm">El corazón del paquete son 15 documentos de texto. Aquí descubrirás, en lenguaje sencillo, qué ofrece cada uno, para qué sirve y quién lo usa — agrupados por función.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<!-- Tópico 1 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🔍 Diagnóstico (3 documentos)</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Inventario, problemas y madurez</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">Tres archivos que muestran la situación actual: <span class="font-mono text-xs">01_tech_inventory</span> (la tecnología que la empresa ya usa), <span class="font-mono text-xs">02_pain_points</span> (los dolores, área por área) y <span class="font-mono text-xs">04_maturity_assessment</span> (una nota de madurez en IA, de 1 a 5).</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Es el punto de partida de toda estrategia: solo sabes hacia dónde ir después de entender desde dónde partes. Sirven de base para el plan y el ROI.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>01 = inventario de tecnología actual</li><li>02 = problemas identificados por departamento</li><li>04 = evaluación de madurez en IA (1 a 5)</li></ul></div>
+</div>
+</div>
+<!-- Tópico 2 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🗺️ Plan de acción (2 documentos)</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Hoja de ruta y quick wins</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300"><span class="font-mono text-xs">05_roadmap</span> traza el camino por fases (30 / 60 / 90 / 180 / 360 días) y <span class="font-mono text-xs">06_quick_wins</span> lista de 5 a 10 logros rápidos y de gran impacto para empezar ya.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Es la parte que se convierte en acción: la hoja de ruta ofrece la visión de todo el año; las quick wins muestran qué hacer la primera semana para generar resultados y confianza.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>05 = plan por fases (30/60/90/180/360)</li><li>06 = logros rápidos de alto impacto</li><li>Empieza por los quick wins para demostrar valor</li></ul></div>
+</div>
+</div>
+<!-- Tópico 3 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">💰 Decisión financiera (3 documentos)</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">ROI, proveedores y licencias</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300"><span class="font-mono text-xs">09_roi_calculator</span> muestra la relación costo-beneficio y el tiempo de recuperación (payback); <span class="font-mono text-xs">07_vendor_comparison</span> compara construir vs. comprar y trae una matriz de proveedores (OpenAI, Anthropic, Google...); <span class="font-mono text-xs">08_license_consolidation</span> indica cómo combinar herramientas y ahorrar.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Es lo que convence a quien firma el cheque. La dirección piensa en cifras: retorno, plazo de amortización y dónde se puede reducir el gasto duplicado.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>09 = costo-beneficio y período de recuperación</li><li>07 = construir vs. comprar + matriz de proveedores</li><li>08 = consolidar licencias y ahorrar</li></ul></div>
+</div>
+</div>
+<!-- Tópico 4 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🛡️ Gobernanza (2 documentos)</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Política de IA y datos</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300"><span class="font-mono text-xs">10_ai_policy</span> es la política de uso aceptable de IA en la empresa (qué se puede hacer y qué no); <span class="font-mono text-xs">11_data_governance</span> se ocupa de la gestión, la seguridad y el cumplimiento normativo (compliance) de los datos.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Adoptar IA sin reglas es un riesgo. Estos dos documentos protegen a la empresa de filtraciones, uso indebido y problemas legales, y dan seguridad a los equipos para usarla.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>10 = política de uso aceptable</li><li>11 = gestión, seguridad y cumplimiento de datos</li><li>Reducen riesgos y le dan confianza al equipo</li></ul></div>
+</div>
+</div>
+<!-- Tópico 5 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">5</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🎓 Capacitación (4 documentos)</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Prompts, glosario, casos y adopción</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">Cuatro documentos para las personas: <span class="font-mono text-xs">12_prompt_library</span> (prompts listos por área), <span class="font-mono text-xs">13_glossary</span> (glosario para personas no técnicas), <span class="font-mono text-xs">14_use_case_library</span> (casos de uso por área) y <span class="font-mono text-xs">15_change_management</span> (plan de capacitación y adopción).</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">La estrategia solo funciona si las personas se suman. Estos documentos convierten el plan en algo que el equipo entiende, usa en el día a día y adopta de verdad.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>12 = biblioteca de prompts por área</li><li>13 = glosario para personas no técnicas</li><li>14 = casos de uso · 15 = plan de adopción</li></ul></div>
+</div>
+</div>
+<!-- Tópico 6 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">6</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">📐 Diagramas Mermaid</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">El código que convierte en los 5 PNG</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">El documento <span class="font-mono text-xs">03_mermaid_diagrams</span> no es un texto común: guarda el código (en lenguaje Mermaid) que, en la fase de Generación, se convierte en cinco imágenes PNG: estado actual, estado futuro, flujo de datos, roadmap e integración.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Saber que el markdown es la «fuente» y los PNG son el «resultado» ayuda a entender por qué a veces la imagen no se genera (tema de la Ruta 3.3) — y cómo editar el diagrama en el código.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>03 = Markdown con el código Mermaid</li><li>Se convierte en 5 PNGs en la fase de Generación</li><li>current, future, data_flow, roadmap, integration</li></ul></div>
+</div>
+</div>
+<!-- Tópico 7 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">7</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🧭 Orden de lectura</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Por dónde empieza un ejecutivo</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">La secuencia natural es: Diagnóstico → Plan → Finanzas → Gobernanza → Capacitación. Cada grupo prepara el siguiente, como una historia que empieza con el problema y termina con la ejecución.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">No necesitas leer todo en orden para entenderlo, pero seguir la secuencia facilita explicar la estrategia a otras personas y preparar la presentación.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Diagnóstico → Plan → Finanzas → Gobernanza → Capacitación</li><li>El ejecutivo empieza por el resumen ejecutivo</li><li>Después: roadmap (05) y ROI (09)</li></ul></div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-3-1')">Ver en Modal</button>
+<a class="px-4 py-2 text-sm bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors" href="modulo-3-1.html">Ver completo</a>
+</div>
+</div>
+<!-- ==================== MÓDULO 3.2 ==================== -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-3-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-purple-400 font-bold">3.2</span>
+<span class="text-xs text-neutral-500">~30 min</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">🖼️ Presentaciones, documentos y cómo presentar</h3>
+<p class="text-neutral-400 text-sm">Además de los 15 textos, el paquete incluye materiales listos para reuniones: dos presentaciones, dos documentos Word y los cinco diagramas. Aquí conocerás cada uno y aprenderás a llevarlo todo a la dirección.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<!-- Tópico 1 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">📊 Presentación ejecutiva</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">10-15 diapositivas para la junta directiva</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">El archivo <span class="font-mono text-xs">executive_summary_deck.pptx</span> es una presentación breve, de 10 a 15 diapositivas, pensada para el board (la junta directiva). Presenta solo la visión general: lo esencial, sin detalles técnicos.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Es el material que usas cuando tienes 15 minutos para convencer a quien toma las decisiones. Breve, directo y enfocado en valor y cifras.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Archivo: executive_summary_deck.pptx</li><li>10-15 diapositivas, visión general</li><li>Público: directiva / board</li></ul></div>
+</div>
+</div>
+<!-- Tópico 2 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">📈 Presentación completa de hallazgos</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">40-50 diapositivas, hallazgos detallados</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">El archivo <span class="font-mono text-xs">full_findings_presentation.pptx</span> es la versión completa, de 40 a 50 diapositivas, con todos los hallazgos y recomendaciones detallados: el análisis en profundidad del resumen ejecutivo.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Es ideal para el taller, la reunión técnica o cuando el equipo pide detalles. Es el material de consulta para quienes quieren ir más allá de la visión general.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Archivo: full_findings_presentation.pptx</li><li>40-50 diapositivas, hallazgos + recomendaciones</li><li>Público: equipo técnico / profundización</li></ul></div>
+</div>
+</div>
+<!-- Tópico 3 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">📄 Informe final de estrategia</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Informe escrito completo</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">El archivo <span class="font-mono text-xs">final_strategy_report.docx</span> es el informe escrito completo en Word: reúne todos los documentos compilados en un único texto continuo, listo para leer de principio a fin.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Es el documento «oficial» que entregas o archivas. Ideal para quien prefiere leer en vez de ver diapositivas, y fácil de editar en Word.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Archivo: final_strategy_report.docx</li><li>Todos los documentos compilados</li><li>Formato Word, fácil de editar</li></ul></div>
+</div>
+</div>
+<!-- Tópico 4 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">📝 Declaración de trabajo</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Propuesta de implementación</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">El archivo <span class="font-mono text-xs">statement_of_work.docx</span> es una propuesta de implementación (SOW): describe lo que se hará, con cronograma, recursos necesarios y costos estimados.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Es el puente entre la estrategia y la ejecución. Los consultores la usan como base de una propuesta comercial; los equipos internos, como plan de proyecto.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Archivo: statement_of_work.docx</li><li>Cronograma + recursos + costos</li><li>Base de propuesta o de proyecto</li></ul></div>
+</div>
+</div>
+<!-- Tópico 5 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">5</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🗂️ Los 5 diagramas de arquitectura</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">PNGs listos para las diapositivas</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">Cinco imágenes PNG listas para pegar en diapositivas: <span class="font-mono text-xs">current_state</span> (estado actual), <span class="font-mono text-xs">future_state</span> (estado futuro), <span class="font-mono text-xs">data_flow</span> (flujo de datos), <span class="font-mono text-xs">roadmap</span> e <span class="font-mono text-xs">integration</span> (integración).</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Un diagrama vale más que mil palabras en una reunión. Estos PNG quedan en la carpeta <span class="font-mono text-xs">mermaid_images/</span> y se pueden arrastrar directamente a la presentación.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>5 PNGs: current, future, data_flow, roadmap, integration</li><li>Quedan en mermaid_images/</li><li>Listos para pegar en diapositivas</li></ul></div>
+</div>
+</div>
+<!-- Tópico 6 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">6</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🎤 Cómo presentar</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Guion para la reunión</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">Una guía sencilla para conducir la reunión: empieza por el resumen ejecutivo, muestra el diagnóstico, presenta la hoja de ruta y el ROI, y cierra con los quick wins (lo que se puede hacer ya).</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Tener los archivos no basta — el orden de presentación marca la diferencia. Este flujo cuenta una historia: dónde estamos, hacia dónde vamos, cuánto rinde y por dónde empezar.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Resumen → diagnóstico → hoja de ruta → ROI → quick wins</li><li>Personaliza antes de presentar</li><li>Revisa los números (es un borrador de IA)</li></ul></div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-3-2')">Ver en Modal</button>
+<a class="px-4 py-2 text-sm bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors" href="modulo-3-2.html">Ver completo</a>
+</div>
+</div>
+<!-- ==================== MÓDULO 3.3 ==================== -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-3-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-purple-400 font-bold">3.3</span>
+<span class="text-xs text-neutral-500">~40 min</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">🧰 Problemas y buenas prácticas</h3>
+<p class="text-neutral-400 text-sm">Casi todos los problemas tienen una solución sencilla. Aquí están los errores más comunes, cómo resolver cada uno y las buenas prácticas que distinguen un resultado mediocre de uno excelente, incluidos el costo y la ética.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<!-- Tópico 1 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🔑 Errores de clave de API (401)</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Verifica el .env</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">El error <strong class="text-purple-400">401</strong> significa "no autorizado": la clave es incorrecta o falta. Verifica si el archivo <span class="font-mono text-xs">.env</span> existe y si las claves tienen el formato correcto (<span class="font-mono text-xs">pplx-...</span> / <span class="font-mono text-xs">AIzaSy...</span>), sin espacios. Después, reinicia la app.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Es el error número uno de quienes empiezan. Casi siempre es un detalle tonto: un espacio de más, la clave pegada a medias o el archivo en el lugar equivocado.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>401 = clave incorrecta o ausente</li><li>Formato: pplx-... y AIzaSy..., sin espacios</li><li>Reinicia la app después de corregir el .env</li></ul></div>
+</div>
+</div>
+<!-- Tópico 2 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">📦 "Module not found"</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Activa el venv</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">El error "Module not found" generalmente significa que el entorno virtual (venv) no está activo. Activa el venv y ejecuta <span class="font-mono text-xs">pip install -r requirements.txt</span>. En Windows, comprueba también si Python está en el PATH.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Es fácil olvidarse de activar el venv al abrir una terminal nueva. Sin él, Python no encuentra las bibliotecas instaladas y avisa que faltan módulos.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Activa el venv antes de ejecutar</li><li>Reinstala: pip install -r requirements.txt</li><li>Windows: Python debe estar en el PATH</li></ul></div>
+</div>
+</div>
+<!-- Tópico 3 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🔌 Puerto 8888 ocupado</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Encuentra otra por su cuenta</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">Si el puerto 8888 ya está en uso, la app encuentra automáticamente otro puerto disponible. Si prefieres elegir uno, ejecútala con <span class="font-mono text-xs">--port 9000</span> (o cualquier otro número).</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Este "problema" casi nunca te bloquea: solo es una advertencia. Saberlo evita que te asustes cuando la dirección en el navegador aparece con un número diferente.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>La app encuentra automáticamente un puerto libre</li><li>Forzar: --port 9000</li><li>No es un error grave</li></ul></div>
+</div>
+</div>
+<!-- Tópico 4 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">⏳ Límites de tasa (429)</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Espera y usa resume</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">El error <strong class="text-purple-400">429</strong> significa "muchas solicitudes": alcanzaste el límite de tasa de la API. Espera de 5 a 10 minutos y continúa desde donde te quedaste con el comando <span class="font-mono text-xs">resume</span>. Ya hay un delay de unos 5s incorporado entre las llamadas de Gemini.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">No pierdes el trabajo: el <span class="font-mono text-xs">resume</span> aprovecha lo que ya se hizo. Esperar un poco casi siempre lo resuelve, sin necesidad de empezar desde cero.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>429 = límite de solicitudes alcanzado</li><li>Espera 5-10 min y ejecuta resume</li><li>El delay de ~5s ya viene incorporado (Gemini)</li></ul></div>
+</div>
+</div>
+<!-- Tópico 5 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">5</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">🖼️ Los diagramas no se renderizan</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">¿PNG en blanco? Falta Chrome</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">Si los diagramas se generan como PNG en blanco, por lo general falta Chrome (que usa Puppeteer para «tomar la foto» del diagrama). La solución es instalar Chrome en la computadora o ejecutar la herramienta mediante Docker.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Los documentos pueden salir perfectos y solo fallar las imágenes: es un problema aislado de la fase de Generación. Saber la causa evita pensar que "todo salió mal".</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>PNG en blanco = falta Chrome/Puppeteer</li><li>Instala Chrome en la computadora</li><li>Alternativa: ejecutarlo vía Docker</li></ul></div>
+</div>
+</div>
+<!-- Tópico 6 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">6</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">💡 Buenas prácticas para obtener buenos resultados</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Cómo sacarle el máximo provecho</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">Cuatro hábitos: empieza en el modo rápido (quick), da un buen <span class="font-mono text-xs">--context</span>, analiza varias empresas rápidamente y profundiza solo en la elegida, y <strong class="text-purple-400">revisa siempre los resultados</strong> antes de usarla.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Estas prácticas ahorran dinero y mejoran mucho la calidad. La diferencia entre un borrador mediocre y uno excelente suele estar en el contexto y la revisión.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Empieza en quick · proporciona un buen --context</li><li>Haz un barrido rápido y profundiza en la elegida</li><li>Revisa siempre antes de entregar</li></ul></div>
+</div>
+</div>
+<!-- Tópico 7 -->
+<div class="topic-item p-4">
+<button class="w-full flex items-center space-x-3 text-left hover:bg-dark-700/50 rounded-lg p-2 -m-2 transition-colors" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold flex items-center justify-center flex-shrink-0">7</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center space-x-2"><span class="text-sm font-semibold">⚖️ Costo y ética</span></div>
+<p class="text-xs text-neutral-400 mt-0.5">Úsala con responsabilidad</p>
+</div>
+<svg class="w-4 h-4 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="topic-explanation mt-3 pl-9 space-y-3">
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Qué es</p><p class="text-sm text-neutral-300">La herramienta usa datos públicos (no datos confidenciales de la empresa); el resultado es un borrador que requiere revisión humana, y no es asesoría jurídica ni financiera definitiva. Controla el gasto con los comandos <span class="font-mono text-xs">status</span> e <span class="font-mono text-xs">list</span>.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Por qué aprender</p><p class="text-sm text-neutral-300">Usarla con responsabilidad te protege a ti y a la empresa. Tratar el resultado como un borrador, y no como una verdad absoluta, es lo que mantiene la calidad y la confianza.</p></div>
+<div><p class="text-xs font-semibold text-purple-400 uppercase tracking-wide mb-1">Conceptos clave</p><ul class="text-sm text-neutral-300 space-y-1 list-disc list-inside"><li>Solo datos públicos · borrador con revisión humana</li><li>No es asesoramiento legal/financiero definitivo</li><li>Dar seguimiento al gasto con status / list</li></ul></div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-3-3')">Ver en Modal</button>
+<a class="px-4 py-2 text-sm bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors" href="modulo-3-3.html">Ver completo</a>
+</div>
+</div>
+<!-- NAVEGAÇÃO FIM -->
+<div class="flex justify-between items-center py-8 border-t border-dark-600 mt-8">
+<a class="flex items-center space-x-2 text-neutral-400 hover:text-purple-400 transition-colors" href="../../index.html">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="text-sm">Volver al inicio</span>
+</a>
+<a class="flex items-center space-x-2 text-neutral-400 hover:text-blue-400 transition-colors" href="../trilha2/index.html">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="text-sm">Ruta anterior: Uso a fondo</span>
+</a>
+</div>
+</main>
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 py-8 mt-16">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm space-y-1">
+<p>🏭 AI Strategy Factory — Estrategia de IA completa para cualquier empresa · <a class="text-sky-400 hover:text-sky-300" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a> · 2026</p>
+</div>
+</footer>
+<!-- MODAIS -->
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-3-1" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-purple-400 font-bold">3.1</span><span class="font-semibold">📚 Los 15 documentos explicados</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-3-1.html"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-3-2" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-purple-400 font-bold">3.2</span><span class="font-semibold">🖼️ Presentaciones, documentos y cómo presentar</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-3-2.html"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-3-3" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-purple-400 font-bold">3.3</span><span class="font-semibold">🧰 Problemas y buenas prácticas</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-3-3.html"></iframe>
+</div>
+</div>
+<!-- SCRIPTS -->
+<script>
+    function toggleTopic(b){const t=b.closest('.topic-item'),e=t.querySelector('.topic-explanation'),c=b.closest('.bg-dark-800');c.querySelectorAll('.topic-explanation.active').forEach(x=>{if(x!==e)x.classList.remove('active');});e.classList.toggle('active');}
+    function openModal(id){const m=document.getElementById(id);if(m){m.classList.remove('hidden');document.body.style.overflow='hidden';}}
+    function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList.add('hidden'));document.body.style.overflow='auto';}
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+    const themeToggle=document.getElementById('theme-toggle'),tdi=document.getElementById('theme-toggle-dark-icon'),tli=document.getElementById('theme-toggle-light-icon'),H=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){tdi.classList.remove('hidden');H.classList.remove('dark');}else{tli.classList.remove('hidden');}
+    themeToggle.addEventListener('click',()=>{tdi.classList.toggle('hidden');tli.classList.toggle('hidden');H.classList.toggle('dark');localStorage.setItem('theme',H.classList.contains('dark')?'dark':'light');});
+  </script>
+</body>
+</html>

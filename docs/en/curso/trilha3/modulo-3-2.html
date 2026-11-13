@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>M3.2 — Presentations, Documents &amp; How to Present | AI Strategy Factory</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15',
+      dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+    } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    /* Light mode base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light accent: emerald (T1) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .group:hover .group-hover\:text-emerald-400 { color: #059669; }
+    /* Light accent: blue (T2) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.06); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+    /* Light accent: purple (T3) */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.06); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    /* Light - remove gradients + special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.06); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    /* Light - navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    /* Dark - softened borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG light-mode taming */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/curso/trilha3/modulo-3-2.html" hreflang="pt-BR" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/en/curso/trilha3/modulo-3-2.html" hreflang="en" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/es/curso/trilha3/modulo-3-2.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="arckhe-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/modulo-3-2.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-3-2.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha3/modulo-3-2.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV — Trilha 3 ativa (purple) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🏭</span><span class="font-bold text-lg hidden sm:inline">AI Strategy Factory</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentals</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">In Depth</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10" href="index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Deliverables</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<!-- BREADCRUMB -->
+<nav aria-label="breadcrumb" class="flex items-center space-x-2 text-sm text-neutral-400 mb-8">
+<a class="hover:text-purple-400 transition-colors" href="../../index.html">Start</a>
+<span>/</span>
+<a class="hover:text-purple-400 transition-colors" href="index.html">Track 3</a>
+<span>/</span>
+<span class="text-purple-400">Module 3.2</span>
+</nav>
+<!-- HEADER DO MÓDULO -->
+<header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 rounded-2xl border border-purple-500/30 p-8 mb-10">
+<div class="mb-4">
+<span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-sm font-semibold rounded-full border border-purple-500/30">MODULE 3.2</span>
+</div>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🖼️ Presentations, documents &amp; how to present</h1>
+<p class="text-neutral-300 text-lg leading-relaxed mb-8">
+        The 15 texts are the raw material. But the package also delivers <strong class="text-purple-400">meeting-ready materials</strong>: two presentations, two Word documents, and five diagrams. Here you’ll get to know each one—and learn how to present them to leadership.
+      </p>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-purple-400">6</div>
+<div class="text-xs text-neutral-400 mt-1">Topics</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-purple-400">30</div>
+<div class="text-xs text-neutral-400 mt-1">Minutes</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-purple-400">2+2</div>
+<div class="text-xs text-neutral-400 mt-1">PPTX + DOCX</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-purple-400">🎤</div>
+<div class="text-xs text-neutral-400 mt-1">Practical</div>
+</div>
+</div>
+</header>
+<!-- SVG FUTURISTA — documento → apresentação → diretoria -->
+<div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-6 mb-10">
+<svg aria-label="The documents become presentations and reports, which are taken to a board meeting" class="w-full h-auto" role="img" viewbox="0 0 1000 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m32-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#c084fc"></stop><stop offset="1" stop-color="#a855f7"></stop></lineargradient>
+<filter height="180%" id="m32-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m32-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#c084fc" opacity="0.10" r="1.3"></circle></pattern>
+<marker id="m32-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#c084fc"></path></marker>
+<marker id="m32-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#m32-grid)" height="220" width="1000" x="0" y="0"></rect>
+<!-- Nó 1: 15 documentos -->
+<g filter="url(#m32-glow)"><rect fill="#1a1230" height="68" rx="14" stroke="url(#m32-grad)" stroke-width="2.5" width="170" x="36" y="76"></rect></g>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="15" font-weight="600" text-anchor="middle" x="121" y="104">📄 15 documents</text>
+<text fill="#d8b4fe" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="121" y="124">the raw material</text>
+<line class="wf-a" marker-end="url(#m32-ah)" stroke="#c084fc" stroke-width="2.5" x1="206" x2="268" y1="110" y2="110"></line>
+<!-- Nó 2: peças prontas -->
+<g font-family="Inter,sans-serif" font-size="12.5" font-weight="600">
+<g class="wf-a"><rect fill="#1a1230" height="34" rx="9" stroke="#c084fc" stroke-width="1.8" width="200" x="272" y="40"></rect><text fill="#e9d5ff" x="288" y="62">📊 2 presentations</text></g>
+<g class="wf-a"><rect fill="#1a1230" height="34" rx="9" stroke="#c084fc" stroke-width="1.8" width="200" x="272" y="93"></rect><text fill="#e9d5ff" x="288" y="115">📝 2 Word documents</text></g>
+<g class="wf-a"><rect fill="#1a1230" height="34" rx="9" stroke="#c084fc" stroke-width="1.8" width="200" x="272" y="146"></rect><text fill="#e9d5ff" x="288" y="168">🗂️ 5 PNG diagrams</text></g>
+</g>
+<g fill="none" opacity="0.55" stroke="#38bdf8" stroke-width="2">
+<path d="M472,57  C560,57 580,110 660,110" marker-end="url(#m32-ahc)"></path>
+<path d="M472,110 L660,110" marker-end="url(#m32-ahc)"></path>
+<path d="M472,163 C560,163 580,110 660,110" marker-end="url(#m32-ahc)"></path>
+</g>
+<!-- Nó 3: diretoria -->
+<g filter="url(#m32-glow)"><rect fill="#0e1b26" height="68" rx="14" stroke="#38bdf8" stroke-width="2.5" width="300" x="664" y="76"></rect></g>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="16" font-weight="600" text-anchor="middle" x="814" y="104">🎤 Board meeting</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="814" y="125">summary → diagnosis → roadmap → ROI</text>
+<text fill="#4b5563" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="500" y="206">From files to decisions: the text becomes ready-to-use materials, and those materials tell the story to decision-makers.</text>
+</svg>
+<p class="text-xs text-neutral-500 mt-3 text-center">Illustrative diagram — the path from content to the meeting room.</p>
+</div>
+<!-- DIVISOR -->
+<h2 class="text-2xl font-bold mb-6">Detailed content</h2>
+<!-- TÓPICO 1 -->
+<section class="mb-16" id="topico-1">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+<h2 class="text-2xl font-bold">📊 Executive Summary Deck</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        The file <span class="font-mono text-sm text-purple-400">executive_summary_deck.pptx</span> is the presentation <strong class="text-purple-400">short and powerful</strong>: 10 to 15 slides, designed for the board. Just the essentials, without technical details.
+      </p>
+<!-- MOCK HTML ilustrativo do deck -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-semibold text-purple-400 flex items-center"><span class="mr-2">🖥️</span> What a slide might look like</h3>
+<span class="text-[11px] uppercase tracking-wide text-neutral-500 border border-dark-600 rounded-full px-2 py-0.5">illustrative</span>
+</div>
+<div class="aspect-[16/9] bg-dark-900/60 rounded-lg border border-purple-500/20 p-6 flex flex-col justify-center">
+<div class="text-xs text-purple-400 font-semibold mb-2">SLIDE 3 / 12 — EXECUTIVE SUMMARY</div>
+<div class="text-xl font-bold text-neutral-100 mb-3">Where AI delivers the most value</div>
+<div class="grid grid-cols-3 gap-3">
+<div class="bg-dark-800/70 rounded p-3 border border-dark-600"><div class="text-purple-400 font-bold text-sm">Support</div><div class="text-[11px] text-neutral-400">−40% response time</div></div>
+<div class="bg-dark-800/70 rounded p-3 border border-dark-600"><div class="text-purple-400 font-bold text-sm">Sales</div><div class="text-[11px] text-neutral-400">+15% conversion</div></div>
+<div class="bg-dark-800/70 rounded p-3 border border-dark-600"><div class="text-purple-400 font-bold text-sm">Operations</div><div class="text-[11px] text-neutral-400">payback in 6 months</div></div>
+</div>
+</div>
+<p class="text-xs text-neutral-500 mt-3">Fictional layout example—the actual numbers come from your company’s analysis.</p>
+</div>
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-3 flex items-center"><span class="mr-2">👤</span> When to use it</h3>
+<p class="text-neutral-300">When you have 15 minutes to convince decision-makers. Short, direct, and focused on value and numbers — the right material to open the meeting.</p>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="mb-16" id="topico-2">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+<h2 class="text-2xl font-bold">📈 Full Findings Presentation</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        The file <span class="font-mono text-sm text-purple-400">full_findings_presentation.pptx</span> is the full version: 40 to 50 slides with <strong class="text-purple-400">all findings and recommendations in detail</strong>. It’s a deeper look at the summary.
+      </p>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><span class="mr-2">🗂️</span> How the 40-50 slides are organized</h3>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<div class="bg-dark-900/60 rounded-lg p-4 border border-purple-500/20 text-center"><div class="text-purple-400 font-bold text-sm mb-1">🔍 Diagnostics</div><div class="text-xs text-neutral-400">tech, pain points, maturity</div></div>
+<div class="bg-dark-900/60 rounded-lg p-4 border border-purple-500/20 text-center"><div class="text-purple-400 font-bold text-sm mb-1">🗺️ Plan</div><div class="text-xs text-neutral-400">roadmap and quick wins</div></div>
+<div class="bg-dark-900/60 rounded-lg p-4 border border-purple-500/20 text-center"><div class="text-purple-400 font-bold text-sm mb-1">💰 Finance</div><div class="text-xs text-neutral-400">ROI and vendors</div></div>
+<div class="bg-dark-900/60 rounded-lg p-4 border border-purple-500/20 text-center"><div class="text-purple-400 font-bold text-sm mb-1">🛡️ Governance</div><div class="text-xs text-neutral-400">policy and data</div></div>
+</div>
+<p class="text-xs text-neutral-500 mt-3">The slides follow the same logic as the 15 documents — just in presentation format.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+<h4 class="font-bold text-purple-400 mb-4">✓ Use the full version when</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>The technical team asks for details</span></li>
+<li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>It’s a workshop or a long meeting</span></li>
+<li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>You need to defend each recommendation</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Avoid when</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Time is short (use the summary)</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>The audience is just the board</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>You haven't reviewed the 50 slides yet</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Tip — two audiences, two decks</h3>
+<p class="text-neutral-300">Think of the summary as the "trailer" and the full version as the "movie." Take the summary to leadership and leave the full version available for anyone who wants to dig deeper later.</p>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="mb-16" id="topico-3">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+<h2 class="text-2xl font-bold">📄 Final Strategy Report</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        The file <span class="font-mono text-sm text-purple-400">final_strategy_report.docx</span> é o <strong class="text-purple-400">complete written report</strong> in Word: all documents compiled into a single text, ready to read from beginning to end.
+      </p>
+<div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><span class="mr-2">💡</span> Why there’s a Word report</h3>
+<p class="text-neutral-300">
+          Slides are great for presenting, but poor for archiving and providing detail. The Word report is the "official" document: easy to edit, print, attach to an email, or keep as a record of the strategy.
+        </p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+<div class="bg-dark-900/60 rounded-lg p-4 border border-purple-500/20 text-center"><div class="text-purple-400 font-bold text-sm mb-1">📚 Complete</div><div class="text-xs text-neutral-400">everything in a single file</div></div>
+<div class="bg-dark-900/60 rounded-lg p-4 border border-purple-500/20 text-center"><div class="text-purple-400 font-bold text-sm mb-1">✏️ Editable</div><div class="text-xs text-neutral-400">adjustment in Word</div></div>
+<div class="bg-dark-900/60 rounded-lg p-4 border border-purple-500/20 text-center"><div class="text-purple-400 font-bold text-sm mb-1">🗄️ Official</div><div class="text-xs text-neutral-400">good for archiving</div></div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="mb-16" id="topico-4">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+<h2 class="text-2xl font-bold">📝 Statement of Work</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        The file <span class="font-mono text-sm text-purple-400">statement_of_work.docx</span> is a <strong class="text-purple-400">implementation proposal</strong> (SOW): describes what will be done, with a timeline, required resources, and estimated costs.
+      </p>
+<div class="space-y-4 mb-6">
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center border border-purple-500/30"><span class="text-purple-400 font-bold">📋</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Scope</h4>
+<p class="text-sm text-neutral-400">Exactly what will be delivered — to align expectations from the start.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center border border-purple-500/30"><span class="text-purple-400 font-bold">📆</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Timeline</h4>
+<p class="text-sm text-neutral-400">The implementation phases and deadlines, in a clear sequence.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center border border-purple-500/30"><span class="text-purple-400 font-bold">💵</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Resources &amp; costs</h4>
+<p class="text-sm text-neutral-400">Who and what will be needed, with the estimated investment.</p>
+</div>
+</div>
+</div>
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-3 flex items-center"><span class="mr-2">👤</span> Who uses it</h3>
+<p class="text-neutral-300">Consultants use the SOW as the basis for a business proposal; internal teams use it as a project plan. It's the bridge between “we've decided to do this” and “let's execute.”</p>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="mb-16" id="topico-5">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+<h2 class="text-2xl font-bold">🗂️ The 5 architecture diagrams</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Five PNG images <strong class="text-purple-400">ready to paste into slides</strong>. They stay in the folder <span class="font-mono text-sm text-purple-400">mermaid_images/</span> and can be dragged directly into the presentation.
+      </p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<div class="text-purple-400 font-bold mb-1">🏛️ current_state</div>
+<p class="text-sm text-neutral-400">What the company looks like today — the current architecture.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<div class="text-purple-400 font-bold mb-1">🚀 future_state</div>
+<p class="text-sm text-neutral-400">What it looks like afterward — the future architecture with AI.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<div class="text-purple-400 font-bold mb-1">🔀 data_flow</div>
+<p class="text-sm text-neutral-400">Where the data goes — the information flow.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<div class="text-purple-400 font-bold mb-1">📅 roadmap</div>
+<p class="text-sm text-neutral-400">The plan timeline, in visual format.</p>
+</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5 mb-6">
+<div class="text-purple-400 font-bold mb-1">🔌 integration</div>
+<p class="text-sm text-neutral-400">How the systems connect — the integration diagram between the tools.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-neutral-300 mb-3 flex items-center"><span class="mr-2">📁</span> Where everything is saved</h3>
+<pre class="font-mono text-sm text-purple-400 bg-dark-900/60 rounded-lg p-4 overflow-x-auto leading-relaxed"><code>output/empresa/
+├── presentations/
+│   ├── executive_summary_deck.pptx
+│   └── full_findings_presentation.pptx
+├── documents/
+│   ├── final_strategy_report.docx
+│   └── statement_of_work.docx
+└── mermaid_images/
+    ├── current_state.png   future_state.png
+    ├── data_flow.png       roadmap.png
+    └── integration.png</code></pre>
+<p class="text-xs text-neutral-500 mt-3">Everything organized by file type in the company’s folder — easy to find and drag into slides.</p>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Tip — a diagram is worth a thousand words</h3>
+<p class="text-neutral-300">In a meeting, showing "today" and "the future" side by side is more convincing than any text. Paste the <span class="font-mono text-xs">current_state</span> e o <span class="font-mono text-xs">future_state</span> on neighboring slides.</p>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="mb-16" id="topico-6">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
+<h2 class="text-2xl font-bold">🎤 How to present</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Having the files isn’t enough — the <strong class="text-purple-400">order</strong> makes a difference. A good storyline tells a story: where we are, where we’re going, what it yields, and where to start.
+      </p>
+<!-- TABELA: qual peça para qual plateia -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6 overflow-x-auto">
+<h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><span class="mr-2">🎯</span> Which piece for which audience</h3>
+<table class="w-full text-sm text-left">
+<thead class="text-purple-400 border-b border-dark-600">
+<tr><th class="py-2 pr-4 font-semibold">Audience</th><th class="py-2 pr-4 font-semibold">Take this</th><th class="py-2 font-semibold">Why</th></tr>
+</thead>
+<tbody class="text-neutral-300">
+<tr class="border-b border-dark-600"><td class="py-2 pr-4 font-semibold text-white">Leadership / board</td><td class="py-2 pr-4"><span class="font-mono text-xs">executive_summary_deck</span></td><td class="py-2 text-neutral-400">Limited time, focused on value</td></tr>
+<tr class="border-b border-dark-600"><td class="py-2 pr-4 font-semibold text-white">Technical team</td><td class="py-2 pr-4"><span class="font-mono text-xs">full_findings_presentation</span></td><td class="py-2 text-neutral-400">Anyone who wants all the details</td></tr>
+<tr class="border-b border-dark-600"><td class="py-2 pr-4 font-semibold text-white">Who files / reads</td><td class="py-2 pr-4"><span class="font-mono text-xs">final_strategy_report</span></td><td class="py-2 text-neutral-400">Official text document</td></tr>
+<tr><td class="py-2 pr-4 font-semibold text-white">Client / project</td><td class="py-2 pr-4"><span class="font-mono text-xs">statement_of_work</span></td><td class="py-2 text-neutral-400">Proposal with timeline and cost</td></tr>
+</tbody>
+</table>
+</div>
+<!-- TIMELINE do roteiro -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-5 flex items-center"><span class="mr-2">🗣️</span> Meeting agenda</h3>
+<div class="relative pl-8 space-y-5 before:content-[''] before:absolute before:left-2 before:top-1 before:bottom-1 before:w-0.5 before:bg-purple-500/30">
+<div class="relative"><div class="absolute -left-[26px] top-0.5 w-4 h-4 rounded-full bg-purple-500/20 border-2 border-purple-400"></div><p class="text-sm"><strong class="text-white">1. Start with the executive summary</strong> <span class="text-neutral-400">— capture attention in 2 minutes</span></p></div>
+<div class="relative"><div class="absolute -left-[26px] top-0.5 w-4 h-4 rounded-full bg-purple-500/20 border-2 border-purple-400"></div><p class="text-sm"><strong class="text-white">2. Show the diagnosis</strong> <span class="text-neutral-400">— align everyone on the current situation</span></p></div>
+<div class="relative"><div class="absolute -left-[26px] top-0.5 w-4 h-4 rounded-full bg-purple-500/20 border-2 border-purple-400"></div><p class="text-sm"><strong class="text-white">3. Present the roadmap and ROI</strong> <span class="text-neutral-400">— the path and the return</span></p></div>
+<div class="relative"><div class="absolute -left-[26px] top-0.5 w-4 h-4 rounded-full bg-purple-500/20 border-2 border-purple-400"></div><p class="text-sm"><strong class="text-white">4. Wrap up with the quick wins</strong> <span class="text-neutral-400">— what you can do now</span></p></div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+<h4 class="font-bold text-purple-400 mb-4">✓ Before presenting</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Customize with real company data</span></li>
+<li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Review all the numbers</span></li>
+<li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Adjust the tone for your audience</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Don’t do this</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Present the AI draft without reviewing it</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Dump all 50 slides on leadership</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Treating the numbers as final</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-3 flex items-center"><span class="mr-2">🎯</span> In short</h3>
+<p class="text-neutral-300">The materials are ready to use; your job is to choose the right one for each audience, personalize it, and tell the story in order. Do that, and the meeting practically runs itself.</p>
+</div>
+</section>
+<!-- RESUMO DO MÓDULO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">🖼️</span> Module Summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Executive Summary Deck</strong><span class="text-neutral-400"> — 10-15 slides, big-picture view, for the board.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Full Findings Presentation</strong><span class="text-neutral-400"> — 40-50 slides, detailed findings and recommendations.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Final Strategy Report</strong><span class="text-neutral-400"> — complete Word report, all documents compiled.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Statement of Work</strong><span class="text-neutral-400"> — proposal with scope, timeline, resources, and costs.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">5 PNG diagrams</strong><span class="text-neutral-400"> — current, future, data_flow, roadmap, integration.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">How to present</strong><span class="text-neutral-400"> — summary → diagnosis → roadmap + ROI → quick wins.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-purple-400 mb-2">Next Module:</h3>
+<p class="text-neutral-300"><strong>3.3 — Problems &amp; best practices</strong> — fix the most common errors and learn the habits that ensure great results, with cost and ethics in mind.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 justify-start">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Back to Track</a>
+<a class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors" href="modulo-3-3.html">Next Module →</a>
+</div>
+</div>
+</section>
+</div><!-- /max-w-4xl -->
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 py-8 mt-16">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm space-y-1">
+<p>🏭 AI Strategy Factory — Complete AI strategy for any company · <a class="text-sky-400 hover:text-sky-300" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a> · 2026</p>
+</div>
+</footer>
+<!-- SCRIPT -->
+<script>
+    const themeToggle=document.getElementById('theme-toggle'),tdi=document.getElementById('theme-toggle-dark-icon'),tli=document.getElementById('theme-toggle-light-icon'),H=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){tdi.classList.remove('hidden');H.classList.remove('dark');}else{tli.classList.remove('hidden');}
+    themeToggle.addEventListener('click',()=>{tdi.classList.toggle('hidden');tli.classList.toggle('hidden');H.classList.toggle('dark');localStorage.setItem('theme',H.classList.contains('dark')?'dark':'light');});
+  </script>
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>M3.1 — Los 15 documentos explicados | AI Strategy Factory</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15',
+      dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+    } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    /* Light mode base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light accent: emerald (T1) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .group:hover .group-hover\:text-emerald-400 { color: #059669; }
+    /* Light accent: blue (T2) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.06); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+    /* Light accent: purple (T3) */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.06); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    /* Light - remove gradients + special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.06); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    /* Light - navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    /* Dark - softened borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG light-mode taming */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/curso/trilha3/modulo-3-1.html" hreflang="pt-BR" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/en/curso/trilha3/modulo-3-1.html" hreflang="en" rel="alternate"/><link href="https://~~ARCKHÉTDS~~.github.io/AI-CONSULT/es/curso/trilha3/modulo-3-1.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="arckhe-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/modulo-3-1.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha3/modulo-3-1.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-3-1.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV — Trilha 3 ativa (purple) -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🏭</span><span class="font-bold text-lg hidden sm:inline">AI Strategy Factory</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentos</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Usar a fondo</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10" href="index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Entregables</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<!-- BREADCRUMB -->
+<nav aria-label="breadcrumb" class="flex items-center space-x-2 text-sm text-neutral-400 mb-8">
+<a class="hover:text-purple-400 transition-colors" href="../../index.html">Inicio</a>
+<span>/</span>
+<a class="hover:text-purple-400 transition-colors" href="index.html">Ruta 3</a>
+<span>/</span>
+<span class="text-purple-400">Módulo 3.1</span>
+</nav>
+<!-- HEADER DO MÓDULO -->
+<header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 rounded-2xl border border-purple-500/30 p-8 mb-10">
+<div class="mb-4">
+<span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-sm font-semibold rounded-full border border-purple-500/30">MÓDULO 3.1</span>
+</div>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">📚 Los 15 documentos explicados</h1>
+<p class="text-neutral-300 text-lg leading-relaxed mb-8">
+        El corazón del paquete son <strong class="text-purple-400">15 documentos en texto</strong>. En lugar de memorizar nombres, los agruparemos por función — diagnóstico, plan, finanzas, gobernanza y capacitación — y entenderemos, en lenguaje sencillo, qué ofrece cada uno y quién lo usa.
+      </p>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-purple-400">7</div>
+<div class="text-xs text-neutral-400 mt-1">Temas</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-purple-400">40</div>
+<div class="text-xs text-neutral-400 mt-1">Minutos</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-purple-400">15</div>
+<div class="text-xs text-neutral-400 mt-1">Documentos</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-purple-400">📖</div>
+<div class="text-xs text-neutral-400 mt-1">Referencia</div>
+</div>
+</div>
+</header>
+<!-- SVG FUTURISTA — pacote → 5 categorias de documentos -->
+<div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-6 mb-10">
+<svg aria-label="El paquete de Markdown se abre en cinco grupos de documentos: diagnóstico, plan de acción, decisión financiera, gobernanza y capacitación" class="w-full h-auto" role="img" viewbox="0 0 1000 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m31-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#c084fc"></stop><stop offset="1" stop-color="#a855f7"></stop></lineargradient>
+<filter height="180%" id="m31-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m31-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#c084fc" opacity="0.10" r="1.3"></circle></pattern>
+<marker id="m31-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#c084fc"></path></marker>
+</defs>
+<rect fill="url(#m31-grid)" height="240" width="1000" x="0" y="0"></rect>
+<!-- setas markdown → grupos -->
+<g fill="none" opacity="0.6" stroke="#c084fc" stroke-width="2">
+<path d="M196,120 C300,120 320,30 452,30" marker-end="url(#m31-ah)"></path>
+<path d="M196,120 C300,120 320,75 452,75" marker-end="url(#m31-ah)"></path>
+<path d="M196,120 L452,120" marker-end="url(#m31-ah)"></path>
+<path d="M196,120 C300,120 320,165 452,165" marker-end="url(#m31-ah)"></path>
+<path d="M196,120 C300,120 320,210 452,210" marker-end="url(#m31-ah)"></path>
+</g>
+<!-- Origem: pasta markdown -->
+<g filter="url(#m31-glow)"><rect fill="#1a1230" height="64" rx="14" stroke="url(#m31-grad)" stroke-width="2.5" width="156" x="40" y="88"></rect></g>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="16" font-weight="600" text-anchor="middle" x="118" y="114">📄 markdown/</text>
+<text fill="#d8b4fe" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="118" y="134">15 documentos</text>
+<!-- Grupos -->
+<g font-family="Inter,sans-serif" font-size="12.5" font-weight="600">
+<g class="wf-a"><rect fill="#1a1230" height="32" rx="9" stroke="#c084fc" stroke-width="1.8" width="320" x="452" y="14"></rect><text fill="#e9d5ff" x="468" y="35">🔍 Diagnóstico — 3 docs</text></g>
+<g class="wf-a"><rect fill="#1a1230" height="32" rx="9" stroke="#c084fc" stroke-width="1.8" width="320" x="452" y="59"></rect><text fill="#e9d5ff" x="468" y="80">🗺️ Plan de acción — 2 docs</text></g>
+<g class="wf-a"><rect fill="#1a1230" height="32" rx="9" stroke="#c084fc" stroke-width="1.8" width="320" x="452" y="104"></rect><text fill="#e9d5ff" x="468" y="125">💰 Decisión financiera — 3 docs</text></g>
+<g class="wf-a"><rect fill="#1a1230" height="32" rx="9" stroke="#c084fc" stroke-width="1.8" width="320" x="452" y="149"></rect><text fill="#e9d5ff" x="468" y="170">🛡️ Gobernanza — 2 docs</text></g>
+<g class="wf-a"><rect fill="#1a1230" height="32" rx="9" stroke="#c084fc" stroke-width="1.8" width="320" x="452" y="194"></rect><text fill="#e9d5ff" x="468" y="215">🎓 Capacitación — 4 docs</text></g>
+</g>
+<!-- selo total -->
+<g filter="url(#m31-glow)"><rect fill="#0e1b26" height="64" rx="14" stroke="#38bdf8" stroke-width="2.5" width="160" x="800" y="88"></rect></g>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="15" font-weight="600" text-anchor="middle" x="880" y="114">14 + 1</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="10.5" text-anchor="middle" x="880" y="134">texto + diagramas</text>
+</svg>
+<p class="text-xs text-neutral-500 mt-3 text-center">Diagrama ilustrativo — 14 documentos de texto agrupados en cinco funciones, más 1 documento con el código de los diagramas.</p>
+</div>
+<!-- DIVISOR -->
+<h2 class="text-2xl font-bold mb-6">Contenido detallado</h2>
+<!-- TÓPICO 1 -->
+<section class="mb-16" id="topico-1">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+<h2 class="text-2xl font-bold">🔍 Diagnóstico (3 documentos)</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Toda estrategia empieza con una descripción honesta de la situación actual. El grupo de <strong class="text-purple-400">diagnóstico</strong> reúne tres documentos que responden: qué usa ya la empresa, qué le duele y qué tan madura está en IA.
+      </p>
+<div class="space-y-4 mb-6">
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center border border-purple-500/30"><span class="text-purple-400 font-bold text-xs">01</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1"><span class="font-mono text-sm text-purple-400">01_tech_inventory</span> — Inventario de tecnología</h4>
+<p class="text-sm text-neutral-400">Enumera la tecnología que la empresa ya tiene hoy: sistemas, herramientas y dónde puede encajar la IA. Es el "plano" del entorno actual.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center border border-purple-500/30"><span class="text-purple-400 font-bold text-xs">02</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1"><span class="font-mono text-sm text-purple-400">02_pain_points</span> — Problemas por área</h4>
+<p class="text-sm text-neutral-400">Mapea los problemas, departamento por departamento (ventas, soporte, operaciones...). Muestra dónde la IA ofrecería más alivio.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center border border-purple-500/30"><span class="text-purple-400 font-bold text-xs">04</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1"><span class="font-mono text-sm text-purple-400">04_maturity_assessment</span> — Madurez en IA</h4>
+<p class="text-sm text-neutral-400">Asigna una puntuación del 1 al 5 según qué tan preparada está la empresa para usar IA. Sirve como "termómetro" y punto de comparación en el futuro.</p>
+</div>
+</div>
+</div>
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-3 flex items-center"><span class="mr-2">👤</span> Quién usa</h3>
+<p class="text-neutral-300">Los líderes y el equipo de estrategia leen primero el diagnóstico: justifica todas las decisiones que vienen después. La calificación de madurez (1 a 5) es excelente para mostrar la evolución a lo largo del tiempo.</p>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="mb-16" id="topico-2">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+<h2 class="text-2xl font-bold">🗺️ Plan de acción (2 documentos)</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Un diagnóstico sin plan es solo una queja. Estos dos documentos convierten la situación actual en <strong class="text-purple-400">pasos concretos</strong>: uno para todo el año y otro para la primera semana.
+      </p>
+<!-- TIMELINE -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-5 flex items-center"><span class="mr-2">📅</span> El roadmap (05) por fases</h3>
+<div class="relative pl-8 space-y-5 before:content-[''] before:absolute before:left-2 before:top-1 before:bottom-1 before:w-0.5 before:bg-purple-500/30">
+<div class="relative"><div class="absolute -left-[26px] top-0.5 w-4 h-4 rounded-full bg-purple-500/20 border-2 border-purple-400"></div><p class="text-sm"><strong class="text-white">30 días</strong> <span class="text-neutral-400">— quick wins y base inicial</span></p></div>
+<div class="relative"><div class="absolute -left-[26px] top-0.5 w-4 h-4 rounded-full bg-purple-500/20 border-2 border-purple-400"></div><p class="text-sm"><strong class="text-white">60 días</strong> <span class="text-neutral-400">— primeros pilotos en marcha</span></p></div>
+<div class="relative"><div class="absolute -left-[26px] top-0.5 w-4 h-4 rounded-full bg-purple-500/20 border-2 border-purple-400"></div><p class="text-sm"><strong class="text-white">90 días</strong> <span class="text-neutral-400">— consolidar y medir resultados</span></p></div>
+<div class="relative"><div class="absolute -left-[26px] top-0.5 w-4 h-4 rounded-full bg-purple-500/20 border-2 border-purple-400"></div><p class="text-sm"><strong class="text-white">180 días</strong> <span class="text-neutral-400">— ampliar lo que funcionó</span></p></div>
+<div class="relative"><div class="absolute -left-[26px] top-0.5 w-4 h-4 rounded-full bg-purple-500/20 border-2 border-purple-400"></div><p class="text-sm"><strong class="text-white">360 días</strong> <span class="text-neutral-400">— IA integrada al negocio</span></p></div>
+</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5 mb-6">
+<div class="text-purple-400 font-bold mb-1"><span class="font-mono text-sm">06_quick_wins</span> — Logros rápidos</div>
+<p class="text-sm text-neutral-400">De 5 a 10 acciones de alto impacto y bajo esfuerzo para poner en marcha ya. Son las que demuestran el valor de la IA desde el principio y consiguen apoyo para el resto del plan.</p>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo — empieza por los quick wins</h3>
+<p class="text-neutral-300">En lugar de intentar implementar toda la hoja de ruta de una vez, elige 1 o 2 quick wins. Un resultado rápido y visible convence mucho más al equipo que un plan de 360 días sobre el papel.</p>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="mb-16" id="topico-3">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+<h2 class="text-2xl font-bold">💰 Decisión financiera (3 documentos)</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Quien firma el cheque piensa en cifras. Estos tres documentos responden las preguntas sobre dinero: <strong class="text-purple-400">¿vale la pena, en cuánto tiempo se amortiza y se puede gastar menos?</strong>
+</p>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<div class="text-purple-400 font-bold text-sm mb-1">💹 09_roi_calculator</div>
+<p class="text-xs text-neutral-400">Relación costo-beneficio y tiempo de recuperación (payback) de cada iniciativa de IA.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<div class="text-purple-400 font-bold text-sm mb-1">⚖️ 07_vendor_comparison</div>
+<p class="text-xs text-neutral-400">Construir vs. comprar (build vs. buy) y matriz de proveedores: OpenAI, Anthropic, Google...</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<div class="text-purple-400 font-bold text-sm mb-1">🧾 08_license_consolidation</div>
+<p class="text-xs text-neutral-400">Cómo combinar herramientas dispersas y reducir gastos duplicados.</p>
+</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><span class="mr-2">🔎</span> Build vs. Buy, de un vistazo</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-5">
+<h4 class="font-bold text-purple-400 mb-3">🛠️ Construir (build)</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Control total y personalización</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Requiere un equipo técnico y más tiempo</span></li>
+</ul>
+</div>
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-5">
+<h4 class="font-bold text-purple-400 mb-3">🛒 Comprar (buy)</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Rápido para empezar, requiere menos esfuerzo</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Menos control, costo recurrente</span></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-3 flex items-center"><span class="mr-2">👤</span> Quién usa</h3>
+<p class="text-neutral-300">Dirección financiera y quienes aprueban el presupuesto. El ROI (09) suele ser el documento que permite aprobar los fondos; llévalo siempre a la reunión de decisión.</p>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="mb-16" id="topico-4">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+<h2 class="text-2xl font-bold">🛡️ Gobernanza (2 documentos)</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Adoptar IA sin reglas es una invitación a los problemas. El grupo de <strong class="text-purple-400">gobernanza</strong> ofrece las protecciones: qué se puede hacer con IA y cómo deben tratarse los datos.
+      </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-6">
+<h4 class="font-bold text-purple-400 mb-2"><span class="font-mono text-sm">10_ai_policy</span></h4>
+<p class="text-sm text-neutral-400 mb-3">La política de uso aceptable de IA: reglas claras sobre lo que el equipo puede y no puede hacer con herramientas de IA.</p>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-purple-400">•</span><span>Qué está permitido y qué está prohibido</span></li>
+<li class="flex items-start space-x-2"><span class="text-purple-400">•</span><span>Da seguridad para que las personas la usen</span></li>
+</ul>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-6">
+<h4 class="font-bold text-purple-400 mb-2"><span class="font-mono text-sm">11_data_governance</span></h4>
+<p class="text-sm text-neutral-400 mb-3">Gestión, seguridad y cumplimiento (compliance) de los datos: cómo guardar, proteger y usar datos de manera responsable.</p>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-purple-400">•</span><span>Privacidad y seguridad</span></li>
+<li class="flex items-start space-x-2"><span class="text-purple-400">•</span><span>Reglas de cumplimiento</span></li>
+</ul>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+<h4 class="font-bold text-purple-400 mb-4">✓ Con gobernanza</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>El equipo sabe qué puede usar</span></li>
+<li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Datos protegidos y trazables</span></li>
+<li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Menos riesgo legal y de imagen</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Sin gobernanza</h4>
+<ul class="space-y-3 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Cada quien lo hace a su manera</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Riesgo de filtrar datos sensibles</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Exposición a problemas legales</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo — la gobernanza habilita, no frena</h3>
+<p class="text-neutral-300">Las buenas reglas no estorban: dan confianza al equipo para usar IA sin miedo. Piensa en la política como el cinturón de seguridad que permite que todos aceleren con tranquilidad.</p>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="mb-16" id="topico-5">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+<h2 class="text-2xl font-bold">🎓 Capacitación (4 documentos)</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        La estrategia solo se hace realidad cuando las personas se suman. Estos cuatro documentos están hechos para <strong class="text-purple-400">el equipo</strong>: enseñan, traducen y ayudan a adoptar la IA en el día a día.
+      </p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<div class="text-purple-400 font-bold mb-1"><span class="font-mono text-sm">12_prompt_library</span></div>
+<p class="text-sm text-neutral-400">Prompts listos, organizados por área. El equipo los copia, pega y adapta, sin necesidad de convertirse en especialista en IA.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<div class="text-purple-400 font-bold mb-1"><span class="font-mono text-sm">13_glossary</span></div>
+<p class="text-sm text-neutral-400">Glosario para personas no técnicas: explica los términos de IA en portugués claro, sin jerga.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<div class="text-purple-400 font-bold mb-1"><span class="font-mono text-sm">14_use_case_library</span></div>
+<p class="text-sm text-neutral-400">Biblioteca de casos de uso por área: ejemplos concretos de cómo ayuda la IA en cada departamento.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<div class="text-purple-400 font-bold mb-1"><span class="font-mono text-sm">15_change_management</span></div>
+<p class="text-sm text-neutral-400">Plan de capacitación y adopción: cómo preparar a las personas y conducir el cambio sin resistencia.</p>
+</div>
+</div>
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-3 flex items-center"><span class="mr-2">👤</span> Quién usa</h3>
+<p class="text-neutral-300">Recursos humanos, líderes de equipo y cualquier colaborador. El glosario (13) y la biblioteca de prompts (12) son los más útiles en el día a día: compártelos cuanto antes para acelerar la adopción.</p>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="mb-16" id="topico-6">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
+<h2 class="text-2xl font-bold">📐 Diagramas Mermaid</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Hay un documento diferente de los demás: <span class="font-mono text-sm text-purple-400">03_mermaid_diagrams</span>. No es para leer — es el <strong class="text-purple-400">código</strong> que, en la fase de Generación, se convierte en cinco imágenes PNG.
+      </p>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-neutral-300 mb-3 flex items-center"><span class="mr-2">⌨️</span> Cómo el código se convierte en imagen</h3>
+<pre class="font-mono text-sm text-purple-400 bg-dark-900/60 rounded-lg p-4 overflow-x-auto leading-relaxed"><code># O documento markdown guarda blocos como este:
+```mermaid
+graph LR
+  A[Hoje] --&gt; B[Estado futuro com IA]
+```
+
+# Na fase de Geração, cada bloco vira um PNG em:
+output/empresa/mermaid_images/
+├── current_state.png
+├── future_state.png
+├── data_flow.png
+├── roadmap.png
+└── integration.png</code></pre>
+<p class="text-xs text-neutral-500 mt-3">El markdown es la "fuente"; los PNG son el "resultado". Editar el diagrama = editar el código Mermaid.</p>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
+<div class="bg-dark-900/60 rounded-lg p-3 border border-purple-500/20 text-center"><div class="text-purple-400 text-xs font-bold mb-1">🏛️ current</div><div class="text-[11px] text-neutral-400">estado actual</div></div>
+<div class="bg-dark-900/60 rounded-lg p-3 border border-purple-500/20 text-center"><div class="text-purple-400 text-xs font-bold mb-1">🚀 future</div><div class="text-[11px] text-neutral-400">estado futuro</div></div>
+<div class="bg-dark-900/60 rounded-lg p-3 border border-purple-500/20 text-center"><div class="text-purple-400 text-xs font-bold mb-1">🔀 flujo_de_datos</div><div class="text-[11px] text-neutral-400">flujo de datos</div></div>
+<div class="bg-dark-900/60 rounded-lg p-3 border border-purple-500/20 text-center"><div class="text-purple-400 text-xs font-bold mb-1">📅 hoja de ruta</div><div class="text-[11px] text-neutral-400">línea de tiempo</div></div>
+<div class="bg-dark-900/60 rounded-lg p-3 border border-purple-500/20 text-center"><div class="text-purple-400 text-xs font-bold mb-1">🔌 integración</div><div class="text-[11px] text-neutral-400">integración</div></div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo — si el PNG sale en blanco</h3>
+<p class="text-neutral-300">Es un problema común que se trata en la Trilha 3.3: casi siempre falta Chrome para «tomar la foto» del diagrama. Aun así, los textos salen perfectos; solo las imágenes necesitan esa pieza.</p>
+</div>
+</section>
+<!-- TÓPICO 7 -->
+<section class="mb-16" id="topico-7">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">7</span>
+<h2 class="text-2xl font-bold">🧭 Orden de lectura</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Con 15 documentos, es fácil perderse. La buena noticia: cuentan una <strong class="text-purple-400">historia en secuencia</strong>. Seguir el orden facilita entender y presentar.
+      </p>
+<!-- TIMELINE de leitura -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-5 flex items-center"><span class="mr-2">📖</span> La secuencia natural</h3>
+<div class="relative pl-8 space-y-5 before:content-[''] before:absolute before:left-2 before:top-1 before:bottom-1 before:w-0.5 before:bg-purple-500/30">
+<div class="relative"><div class="absolute -left-[26px] top-0.5 w-4 h-4 rounded-full bg-purple-500/20 border-2 border-purple-400"></div><p class="text-sm"><strong class="text-white">1. Diagnóstico</strong> <span class="text-neutral-400">— de dónde partimos</span></p></div>
+<div class="relative"><div class="absolute -left-[26px] top-0.5 w-4 h-4 rounded-full bg-purple-500/20 border-2 border-purple-400"></div><p class="text-sm"><strong class="text-white">2. Plan</strong> <span class="text-neutral-400">— hacia dónde vamos</span></p></div>
+<div class="relative"><div class="absolute -left-[26px] top-0.5 w-4 h-4 rounded-full bg-purple-500/20 border-2 border-purple-400"></div><p class="text-sm"><strong class="text-white">3. Finanzas</strong> <span class="text-neutral-400">— cuánto cuesta y cuánto rinde</span></p></div>
+<div class="relative"><div class="absolute -left-[26px] top-0.5 w-4 h-4 rounded-full bg-purple-500/20 border-2 border-purple-400"></div><p class="text-sm"><strong class="text-white">4. Gobernanza</strong> <span class="text-neutral-400">— cómo hacerlo de forma segura</span></p></div>
+<div class="relative"><div class="absolute -left-[26px] top-0.5 w-4 h-4 rounded-full bg-purple-500/20 border-2 border-purple-400"></div><p class="text-sm"><strong class="text-white">5. Capacitación</strong> <span class="text-neutral-400">— cómo lo ejecutan las personas</span></p></div>
+</div>
+</div>
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><span class="mr-2">🎯</span> Por dónde empieza un ejecutivo</h3>
+<ul class="space-y-2 text-neutral-300">
+<li><strong>Resumen ejecutivo</strong> — la visión general, en pocos minutos</li>
+<li><strong>Hoja de ruta (05)</strong> — la ruta práctica del año</li>
+<li><strong>ROI (09)</strong> — el número que justifica la inversión</li>
+</ul>
+</div>
+<div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-3 flex items-center"><span class="mr-2">🧭</span> En resumen</h3>
+<p class="text-neutral-300">No hace falta leer todo de una vez. Empieza por lo que necesitas: ¿decidir el presupuesto? Ve al ROI. ¿Adopción por parte del equipo? Ve a la capacitación. Los grupos se diseñaron para usarse según se necesiten.</p>
+</div>
+</section>
+<!-- RESUMO DO MÓDULO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">📚</span> Resumen del módulo</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Diagnóstico (3)</strong><span class="text-neutral-400"> — 01 inventario, 02 problemas, 04 madurez (1-5).</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Plan (2)</strong><span class="text-neutral-400"> — 05 hoja de ruta (30/60/90/180/360) y 06 logros rápidos.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Finanzas (3)</strong><span class="text-neutral-400"> — 09 ROI, 07 desarrollar vs. comprar + proveedores, 08 licencias.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Gobernanza (2)</strong><span class="text-neutral-400"> — 10 política de IA y 11 gobernanza de datos.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Capacitación (4)</strong><span class="text-neutral-400"> — 12 prompts, 13 glosario, 14 casos de uso, 15 adopción.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Diagramas</strong><span class="text-neutral-400"> — 03 es el código Mermaid que se convierte en los 5 PNGs.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-purple-400 mb-2">Siguiente módulo:</h3>
+<p class="text-neutral-300"><strong>3.2 — Presentaciones, documentos y cómo presentar</strong> — conoce las 2 presentaciones, los 2 Word, los 5 diagramas y el guion para presentar todo a la dirección.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 justify-start">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Volver a la Ruta</a>
+<a class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors" href="modulo-3-2.html">Próximo Módulo →</a>
+</div>
+</div>
+</section>
+</div><!-- /max-w-4xl -->
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 py-8 mt-16">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm space-y-1">
+<p>🏭 AI Strategy Factory — Estrategia de IA completa para cualquier empresa · <a class="text-sky-400 hover:text-sky-300" href="https://linnoff88-dev.github.io/arckhe-ai" target="_blank">ARCKHÉ.CLUB</a> · 2026</p>
+</div>
+</footer>
+<!-- SCRIPT -->
+<script>
+    const themeToggle=document.getElementById('theme-toggle'),tdi=document.getElementById('theme-toggle-dark-icon'),tli=document.getElementById('theme-toggle-light-icon'),H=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){tdi.classList.remove('hidden');H.classList.remove('dark');}else{tli.classList.remove('hidden');}
+    themeToggle.addEventListener('click',()=>{tdi.classList.toggle('hidden');tli.classList.toggle('hidden');H.classList.toggle('dark');localStorage.setItem('theme',H.classList.contains('dark')?'dark':'light');});
+  </script>
+</body>
+</html>
